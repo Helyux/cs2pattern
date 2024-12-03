@@ -1,0 +1,47 @@
+{
+  "abyss": {
+    "ssg 08": {
+      "name": "abyss",
+      "pattern": [54, 148, 167, 208, 669, 806, 911, 985],
+      "ordered": false
+    }
+  },
+  "asiimov": {
+    "awp": {
+      "name": "blackiimov",
+      "pattern": [],
+      "ordered": false,
+      "float_min": 0.98
+    }
+  },
+  "heat treated": {
+    "desert eagle": [
+      {
+        "name": "gem_purple",
+        "pattern": [172, 599, 156, 293, 29, 944, 133],
+        "ordered": true
+      },
+      {
+        "name": "gem_blue",
+        "pattern": [490, 148, 69, 704],
+        "ordered": true
+      }
+    ]
+  },
+  "sandstorm": {
+    "galil ar": [
+      {
+        "name": "gem_purple",
+        "pattern": [583, 761, 739, 178],
+        "ordered": true
+      }
+    ],
+    "tec-9": [
+      {
+        "name": "gem_purple",
+        "pattern": [70, 328, 862, 583, 552],
+        "ordered": true
+      }
+    ]
+  }
+}
