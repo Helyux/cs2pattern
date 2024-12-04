@@ -6,6 +6,96 @@
       "ordered": false
     }
   },
+  "acid fade": {
+    "ssg 08": {
+      "name": "gem_green",
+      "pattern": [576, 575, 449],
+      "ordered": true
+    }
+  },
+  "berries and cherries": {
+    "five-seven": {
+      "name": "berry_max",
+      "pattern": [182, 80],
+      "ordered": false
+    }
+  },
+  "case hardened": {
+    "ak-47": [
+      {
+        "name": "gem_blue",
+        "pattern": [661, 670, 955, 179, 387, 151, 321, 592, 809, 555, 828, 760, 168, 617],
+        "ordered": true
+      },
+      {
+        "name": "blaze",
+        "pattern": [784, 219],
+        "ordered": false
+      },
+      {
+        "name": "gem_gold",
+        "pattern": [784, 219],
+        "ordered": false
+      }
+    ],
+    "five-seven": [
+      {
+        "name": "gem_blue",
+        "pattern": [278, 690, 868, 670, 363, 872, 648, 532, 689, 321],
+        "ordered": true
+      },
+      {
+        "name": "gem_gold",
+        "pattern": [691],
+        "ordered": false
+      }
+    ],
+    "flip knife": [
+      {
+        "name": "gem_blue",
+        "pattern": [670, 321, 151, 592, 661, 555],
+        "ordered": true
+      }
+    ],
+    "karambit": [
+      {
+        "name": "gem_blue",
+        "pattern": [387, 888, 442, 853, 269, 470, 905, 809, 902, 776, 463, 73, 510],
+        "ordered": true
+      },
+      {
+        "name": "blaze",
+        "pattern": [819, 896, 939, 941],
+        "ordered": false
+      },
+      {
+        "name": "gem_gold",
+        "pattern": [896, 231, 939, 388],
+        "ordered": false
+      }
+    ]
+  },
+  "gamma doppler": {
+    "karambit": {
+      "name": "gem_diamond",
+      "pattern": [547, 630, 311, 717, 445, 253, 746],
+      "ordered": true
+    }
+  },
+  "grinder": {
+    "glock-18": {
+      "name": "max_black",
+      "pattern": [384, 916, 811, 907],
+      "ordered": true
+    }
+  },
+  "electric hive": {
+    "awp": {
+      "name": "bluehive",
+      "pattern": [273, 436, 902, 23, 853, 262],
+      "ordered": true
+    }
+  },
   "heat treated": {
     "desert eagle": [
       {
@@ -20,20 +110,80 @@
       }
     ]
   },
-  "sandstorm": {
-    "galil ar": [
+  "marble fade": {
+    "bayonet": {
+      "name": "fire_and_ice",
+      "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
+      "ordered": false
+    },
+    "flip knife": {
+      "name": "fire_and_ice",
+      "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
+      "ordered": false
+    },
+    "gut knife": {
+      "name": "fire_and_ice",
+      "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
+      "ordered": false
+    },
+    "karambit": {
+      "name": "fire_and_ice",
+      "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
+      "ordered": false
+    }
+  },
+  "moonrise": {
+    "glock-18": {
+      "name": "star",
+      "pattern": [58, 59, 66, 90, 102, 224, 601, 628, 694, 706, 837, 864],
+      "ordered": true
+    }
+  },
+  "paw": {
+    "awp": [
       {
-        "name": "gem_purple",
-        "pattern": [583, 761, 739, 178],
-        "ordered": true
-      }
-    ],
-    "tec-9": [
+        "name": "golden_cat",
+        "pattern": [41, 350],
+        "ordered": false
+      },
       {
-        "name": "gem_purple",
-        "pattern": [70, 328, 862, 583, 552],
-        "ordered": true
+        "name": "stoner_cat",
+        "pattern": [420],
+        "ordered": false
       }
     ]
+  },
+  "phoenix blacklight": {
+    "galil ar": {
+      "name": "phoenix",
+      "pattern": [755, 963, 619, 978, 432, 289, 729],
+      "ordered": true
+    }
+  },
+  "pink ddpat": {
+    "glock-18": {
+      "name": "gem_pink",
+      "pattern": [568, 600],
+      "ordered": false
+    }
+  },
+  "kami": {
+    "five-seven": {
+      "name": "pussy",
+      "pattern": [590, 909],
+      "ordered": false
+    }
+  },
+  "sandstorm": {
+    "galil ar": {
+      "name": "gem_purple",
+      "pattern": [583, 761, 739, 178],
+      "ordered": true
+    },
+    "tec-9": {
+      "name": "gem_purple",
+      "pattern": [70, 328, 862, 583, 552],
+      "ordered": true
+    }
   }
 }
