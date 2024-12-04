@@ -9,8 +9,8 @@ from cs2pattern.check import check_rare, get_pattern_dict
 from cs2pattern.modular import *
 
 __all__ = [
-    'get_pattern_dict',
     'check_rare',
+    'get_pattern_dict',
 
     'abyss',
     'berries',
