@@ -28,8 +28,6 @@ def _normalize_input(market_hash: str, pattern: int) -> Optional[tuple[str, str,
 
     :return: A tuple of the normalized weapon, skin and pattern or None if we failed normalizing.
     :rtype: Optional[tuple[str, str, int]]
-
-    :raises ValueError: If any input validation fails.
     """
 
     # Normalize market_hash
@@ -50,6 +48,16 @@ def _normalize_input(market_hash: str, pattern: int) -> Optional[tuple[str, str,
 
 
 def _check_special(normalized_data: tuple[str, str, int]) -> Optional[tuple[str, int]]:
+    """
+    Check if the normalized data matches a special pattern.
+
+    :param normalized_data: The normalized weapon, skin, and pattern tuple.
+    :type normalized_data: tuple[str, str, int]
+
+    :return: A tuple with the pattern name and index, -1 if unordered, or None if no match is found.
+    :rtype: Optional[tuple[str, int]]
+    """
+
     weapon, skin, pattern = normalized_data
 
     # Check if skin and weapon exist in the pattern data
@@ -69,6 +77,17 @@ def _check_special(normalized_data: tuple[str, str, int]) -> Optional[tuple[str,
 
 
 def check_rare(market_hash: str, pattern: int) -> tuple[bool, Optional[tuple[str, int]]]:
+    """
+    Determine if the given item is rare based on market hash and pattern.
+
+    :param market_hash: The market hash of the item.
+    :type market_hash: str
+    :param pattern: The pattern to check for rarity.
+    :type pattern: int
+
+    :return: A tuple indicating if the item is rare and the special pattern details if any.
+    :rtype: tuple[bool, Optional[tuple[str, int]]]
+    """
 
     normalized = _normalize_input(market_hash, pattern)
     if not normalized:
@@ -78,7 +97,15 @@ def check_rare(market_hash: str, pattern: int) -> tuple[bool, Optional[tuple[str
 
     return (True, special) if special else (False, None)
 
+
 def get_pattern_dict() -> dict:
+    """
+    Retrieve the dictionary containing special patterns.
+
+    :return: The special pattern dictionary.
+    :rtype: dict
+    """
+
     return SPECIAL_PATTERN
 
 
