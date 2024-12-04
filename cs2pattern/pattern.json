@@ -6,14 +6,6 @@
       "ordered": false
     }
   },
-  "asiimov": {
-    "awp": {
-      "name": "blackiimov",
-      "pattern": [],
-      "ordered": false,
-      "float_min": 0.98
-    }
-  },
   "heat treated": {
     "desert eagle": [
       {
