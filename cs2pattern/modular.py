@@ -51,7 +51,8 @@ def blaze(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return pattern list for fire and ice pattern 'Marble Fade' skins.
+    Return pattern list for 1st & 2nd max fire and ice pattern 'Marble Fade' skins.
+    WARNING: This is only available for Bayonet, Flip Knife, Gut Knife & Karambit!
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
@@ -60,12 +61,12 @@ def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
-    weapon_options = {
-        'bayonet': [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
-        'karambit': [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
-    }
+    weapon_options = {'bayonet', 'flip knife', 'gut knife', 'karambit'}
 
-    return weapon_options.get(weapon, []), False
+    if weapon in weapon_options:
+        return [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701], False
+    else:
+        return [], False
 
 
 def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
