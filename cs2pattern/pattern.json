@@ -1,7 +1,7 @@
 {
   "abyss": {
     "ssg 08": {
-      "name": "abyss",
+      "name": "white_scope",
       "pattern": [54, 148, 167, 208, 669, 806, 911, 985],
       "ordered": false
     }
@@ -14,11 +14,18 @@
     }
   },
   "berries and cherries": {
-    "five-seven": {
-      "name": "berry_max",
-      "pattern": [182, 80],
-      "ordered": false
-    }
+    "five-seven": [
+      {
+        "name": "max_blue",
+        "pattern": [80],
+        "ordered": false
+      },
+      {
+        "name": "max_red",
+        "pattern": [182],
+        "ordered": false
+      }
+    ]
   },
   "case hardened": {
     "ak-47": [
@@ -26,11 +33,6 @@
         "name": "gem_blue",
         "pattern": [661, 670, 955, 179, 387, 151, 321, 592, 809, 555, 828, 760, 168, 617],
         "ordered": true
-      },
-      {
-        "name": "blaze",
-        "pattern": [784, 219],
-        "ordered": false
       },
       {
         "name": "gem_gold",
@@ -91,7 +93,7 @@
   },
   "electric hive": {
     "awp": {
-      "name": "bluehive",
+      "name": "blue_hive",
       "pattern": [273, 436, 902, 23, 853, 262],
       "ordered": true
     }

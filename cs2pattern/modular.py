@@ -30,23 +30,15 @@ def berries() -> tuple[list[int], bool]:
     return [182, 80], False
 
 
-def blaze(weapon: str) -> Optional[tuple[list[int], bool]]:
+def blaze() -> tuple[list[int], bool]:
     """
-    Return pattern list for blaze pattern 'Case Hardened' skins.
-
-    :param weapon: The weapon for which to return the pattern list
-    :type weapon: str
+    Return pattern list for blaze pattern '★ Karambit | Case Hardened'.
 
     :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
-    :rtype: Optional[tuple[list[int], bool]]
+    :rtype: tuple[list[int], bool]
     """
 
-    weapon_options = {
-        'ak-47': [784, 219],
-        'karambit': [819, 896, 939, 941],
-    }
-
-    return weapon_options.get(weapon, []), False
+    return [819, 896, 939, 941], False
 
 
 def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -117,7 +109,7 @@ def gem_gold(weapon: str) -> Optional[tuple[list[int], bool]]:
     weapon_options = {
         'ak-47': [784, 219],
         'five-seven': [691],
-        'karambit': [896, 231, 939, 388],
+        'karambit': [231, 388],
     }
 
     return weapon_options.get(weapon, []), False
