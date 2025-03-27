@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "04.12.2024"
+__date__ = "28.03.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -22,6 +22,7 @@ __all__ = [
     'gem_green',
     'gem_pink',
     'gem_purple',
+    'gem_white',
     'grinder',
     'hive',
     'moonrise',

@@ -77,6 +77,13 @@
       }
     ]
   },
+    "electric hive": {
+    "awp": {
+      "name": "blue_hive",
+      "pattern": [273, 436, 902, 23, 853, 262],
+      "ordered": true
+    }
+  },
   "gamma doppler": {
     "karambit": {
       "name": "gem_diamond",
@@ -88,13 +95,6 @@
     "glock-18": {
       "name": "max_black",
       "pattern": [384, 916, 811, 907],
-      "ordered": true
-    }
-  },
-  "electric hive": {
-    "awp": {
-      "name": "blue_hive",
-      "pattern": [273, 436, 902, 23, 853, 262],
       "ordered": true
     }
   },
@@ -111,6 +111,13 @@
         "ordered": true
       }
     ]
+  },
+    "kami": {
+    "five-seven": {
+      "name": "pussy",
+      "pattern": [590, 909],
+      "ordered": false
+    }
   },
   "marble fade": {
     "bayonet": {
@@ -169,13 +176,6 @@
       "ordered": false
     }
   },
-  "kami": {
-    "five-seven": {
-      "name": "pussy",
-      "pattern": [590, 909],
-      "ordered": false
-    }
-  },
   "sandstorm": {
     "galil ar": {
       "name": "gem_purple",
@@ -186,6 +186,33 @@
       "name": "gem_purple",
       "pattern": [70, 328, 862, 583, 552],
       "ordered": true
+    }
+  },
+  "urban masked": {
+    "classic knife": {
+      "name": "gem_white",
+      "pattern": [402],
+      "ordered": false
+    },
+    "flip knife": {
+      "name": "gem_white",
+      "pattern": [346],
+      "ordered": false
+    },
+    "m9 bayonet": {
+      "name": "gem_white",
+      "pattern": [620],
+      "ordered": false
+    },
+    "stiletto knife": {
+      "name": "gem_white",
+      "pattern": [402],
+      "ordered": false
+    },
+    "skeleton knife": {
+      "name": "gem_white",
+      "pattern": [299],
+      "ordered": false
     }
   }
 }

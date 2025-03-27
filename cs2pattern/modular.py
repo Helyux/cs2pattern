@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "04.12.2024"
+__date__ = "28.03.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -155,6 +155,28 @@ def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
     }
 
     return weapon_options.get(weapon, []), True
+
+
+def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
+    """
+    Return pattern list for whitegem 'Urban Masked' skins.
+
+    :param weapon: The weapon for which to return the pattern list
+    :type weapon: str
+
+    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :rtype: Optional[tuple[list[int], bool]]
+    """
+
+    weapon_options = {
+        'stiletto knife': [402],
+        'skeleton knife': [299],
+        'classic knife': [402],
+        'flip knife': [346],
+        'm9 bayonet': [620],
+    }
+
+    return weapon_options.get(weapon, []), False
 
 
 def grinder() -> tuple[list[int], bool]:

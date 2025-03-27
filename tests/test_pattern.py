@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "04.12.2024"
+__date__ = "28.03.2025"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
@@ -72,6 +72,10 @@ inputs = [
     # Test gem purple
     [(True, ("gem_purple", 2)), ("Desert Eagle | Heat Treated (Factory New)", 599)],
     [(False, None), ("Desert Eagle | Heat Treated (Factory New)", 999)],
+
+    # Test gem white
+    [(True, ("gem_white", -1)), ("★ Skeleton Knife | Urban Masked (Factory New)", 299)],
+    [(False, None), ("★ Skeleton Knife | Urban Masked (Factory New)", 403)],
 
     # Test grinder
     [(True, ("max_black", 1)), ("Glock-18 | Grinder (Factory New)", 384)],
