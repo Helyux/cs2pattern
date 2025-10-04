@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cs2pattern"
-version = "0.2.1"
+version = "0.2.2"
 description = "CS2 pattern utility"
 authors = ["Lukas Mahler <m@hler.eu>"]
 readme = "README.md"
