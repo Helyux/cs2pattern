@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "04.12.2024"
+__date__ = "04.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -26,7 +26,7 @@ def _normalize_input(market_hash: str, pattern: int) -> Optional[tuple[str, str,
     :param pattern: The pattern, which should be numeric and between 0-1000 (inclusive).
     :type pattern: int
 
-    :return: A tuple of the normalized weapon, skin and pattern or None if we failed normalizing.
+    :return: A tuple of the normalized weapon, skin and pattern, or None if we failed to normalize.
     :rtype: Optional[tuple[str, str, int]]
     """
 

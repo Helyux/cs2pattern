@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "03.12.2024"
+__date__ = "04.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -13,7 +13,7 @@ from typing import Literal
 
 def check_date_match(file_path: str) -> bool:
     """
-    Check if the '__date__' variable in a Python file matches the current date, and update it if necessary.
+    Check if the '__date__' variable in a Python file matches the current date and update it if necessary.
 
     :param file_path: The path to the Python file to check and potentially update.
     :type file_path: str
@@ -65,7 +65,7 @@ def check_hook(files: list[str]) -> Literal[0, 1]:
     :rtype: Literal[0, 1]
     """
 
-    # Get list of modified .py files
+    # Get a list of modified .py files
     py_files = [file_path for file_path in files if file_path.endswith('.py') and os.path.isfile(file_path)]
     for file_path in py_files:
         if not check_date_match(file_path):

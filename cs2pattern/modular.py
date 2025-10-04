@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "28.03.2025"
+__date__ = "04.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -10,9 +10,9 @@ from typing import Optional
 
 def abyss() -> tuple[list[int], bool]:
     """
-    Return pattern list for white scoped 'SSG 08 | Abyss' skins.
+    Return a pattern list for white scoped 'SSG 08 | Abyss' skins.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -23,7 +23,7 @@ def berries() -> tuple[list[int], bool]:
     """
     Return max red (182) or max blue (80) 'Five-SeveN | Berries and cherries' pattern list.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -32,9 +32,9 @@ def berries() -> tuple[list[int], bool]:
 
 def blaze() -> tuple[list[int], bool]:
     """
-    Return pattern list for blaze pattern '★ Karambit | Case Hardened'.
+    Return a pattern list for blaze pattern '★ Karambit | Case Hardened'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -43,13 +43,13 @@ def blaze() -> tuple[list[int], bool]:
 
 def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return pattern list for 1st & 2nd max fire and ice pattern 'Marble Fade' skins.
+    Return a pattern list for 1st and 2nd max fire and ice pattern 'Marble Fade' skins.
     WARNING: This is only available for Bayonet, Flip Knife, Gut Knife & Karambit!
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: Optional[tuple[list[int], bool]]
     """
 
@@ -63,12 +63,12 @@ def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return pattern list for bluegem 'Case Hardened' or 'Heat Treated' skins.
+    Return a pattern list for bluegem 'Case Hardened' or 'Heat Treated' skins.
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: Optional[tuple[list[int], bool]]
     """
 
@@ -85,10 +85,10 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def gem_diamond() -> tuple[list[int], bool]:
     """
-    Return pattern list for diamondgem 'Karambit | Gamma Doppler'.
+    Return a pattern list for diamondgem 'Karambit | Gamma Doppler'.
     WARN: YOU HAVE TO VERIFY, THIS IS ONLY P1 GAMMA DOPPLERS!
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -97,12 +97,12 @@ def gem_diamond() -> tuple[list[int], bool]:
 
 def gem_gold(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return pattern list for goldgem 'Case Hardened' or 'Heat Treated' skins.
+    Return a pattern list for goldgem 'Case Hardened' or 'Heat Treated' skins.
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: Optional[tuple[list[int], bool]]
     """
 
@@ -117,9 +117,9 @@ def gem_gold(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def gem_green() -> tuple[list[int], bool]:
     """
-    Return pattern list for max green 'SSG 08 | Acid Fade'.
+    Return a pattern list for max green 'SSG 08 | Acid Fade'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -128,9 +128,9 @@ def gem_green() -> tuple[list[int], bool]:
 
 def gem_pink() -> tuple[list[int], bool]:
     """
-    Return pattern list for max pink 'Glock-18 | Pink DDPAT'.
+    Return a pattern list for max pink 'Glock-18 | Pink DDPAT'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -139,12 +139,12 @@ def gem_pink() -> tuple[list[int], bool]:
 
 def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return pattern list for purplegem 'Sandstorm' or 'Heat Treated' skins.
+    Return a pattern list for purplegem 'Sandstorm' or 'Heat Treated' skins.
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: Optional[tuple[list[int], bool]]
     """
 
@@ -159,12 +159,12 @@ def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return pattern list for whitegem 'Urban Masked' skins.
+    Return a pattern list for whitegem 'Urban Masked' skins.
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: Optional[tuple[list[int], bool]]
     """
 
@@ -181,9 +181,9 @@ def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def grinder() -> tuple[list[int], bool]:
     """
-    Return pattern list for max black 'Glock-18 | Grinder'.
+    Return a pattern list for max black 'Glock-18 | Grinder'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -192,9 +192,9 @@ def grinder() -> tuple[list[int], bool]:
 
 def hive() -> tuple[list[int], bool]:
     """
-    Return pattern list for bluehive 'AWP | Electric Hive'.
+    Return a pattern list for bluehive 'AWP | Electric Hive'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -203,9 +203,9 @@ def hive() -> tuple[list[int], bool]:
 
 def moonrise() -> tuple[list[int], bool]:
     """
-    Return pattern list for star pattern 'Glock-18 | Moonrise'.
+    Return a pattern list for star pattern 'Glock-18 | Moonrise'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -214,11 +214,11 @@ def moonrise() -> tuple[list[int], bool]:
 
 def paw() -> tuple[list[int], bool]:
     """
-    Return pattern list for golden cat & stoner cat pattern 'AWP | PAW'.
+    Return a pattern list for golden cat & stoner cat pattern 'AWP | PAW'.
 
     Golden Cat: [41, 350] // Stoner Cat: [420]
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -227,9 +227,9 @@ def paw() -> tuple[list[int], bool]:
 
 def phoenix() -> tuple[list[int], bool]:
     """
-    Return pattern list for best pos visible phoenix 'Galil AR | Phoenix Blacklight'.
+    Return a pattern list for best pos visible phoenix 'Galil AR | Phoenix Blacklight'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
@@ -240,7 +240,7 @@ def pussy() -> tuple[list[int], bool]:
     """
     Return pattern list for pussy pattern 'Five-SeveN | Kami'.
 
-    :return: A list of pattern that are special for the skin and a boolean indicating if the list is ordered.
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
