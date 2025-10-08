@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "04.10.2025"
+__date__ = "08.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -35,14 +35,14 @@ def _normalize_input(market_hash: str, pattern: int) -> Optional[tuple[str, str,
 
     # Extract weapon and skin
     if " | " not in market_hash:
-        return
+        return None
 
     weapon, skin = market_hash.split(" | ", 1)
     skin = re.sub(r"\s*\(.*?\)$", "", skin).strip()
 
     # Validate pattern
     if not (0 <= pattern <= 1000):
-        return
+        return None
 
     return weapon, skin, pattern
 
@@ -65,8 +65,6 @@ def _check_special(normalized_data: tuple[str, str, int]) -> Optional[tuple[str,
         return None
 
     groups = SPECIAL_PATTERN[skin][weapon]
-    if isinstance(groups, dict):
-        groups = [groups]
 
     for group in groups:
         if pattern in group.get('pattern', []):

@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "28.03.2025"
+__date__ = "08.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
@@ -20,7 +20,7 @@ inputs = [
     # Test Abyss
     [(True, ("white_scope", -1)), ("SSG 08 | Abyss (Field-Tested)", 148)],
     [(False, None), ("SSG 08 | Abyss (Field-Tested)", 152)],
-    [(False, None), ("AWP | Abyss (Fielt-dested)", 1523)],
+    [(False, None), ("AWP | Abyss (Fielt-dested)", 148)],
 
     # Test berries
     [(True, ("max_blue", -1)), ("Five-SeveN | Berries And Cherries (Factory New)", 80)],
@@ -48,6 +48,8 @@ inputs = [
 
     # Test gem blue
     [(True, ("gem_blue", 1)), ("AK-47 | Case Hardened (Field-Tested)", 661)],
+    [(True, ("gem_blue", 2)), ("★ Bayonet | Case Hardened (Factory New)", 592)],
+    [(True, ("gem_blue", 2)), ("Desert Eagle | Heat Treated (Field-Tested)", 148)],
     [(True, ("gem_blue", 4)), ("Five-SeveN | Case Hardened (Factory New)", 670)],
     [(True, ("gem_blue", 3)), ("★ Flip Knife | Case Hardened (Factory New)", 151)],
     [(False, None), ("★ Karambit | Case Hardened (Factory New)", 123)],
@@ -58,6 +60,7 @@ inputs = [
 
     # Test gem gold
     [(True, ("gem_gold", -1)), ("AK-47 | Case Hardened (Field-Tested)", 219)],
+    [(True, ("gem_gold", -1)), ("★ Bayonet | Case Hardened (Factory New)", 395)],
     [(True, ("gem_gold", -1)), ("★ Karambit | Case Hardened (Factory New)", 231)],
     [(False, None), ("Five-SeveN | Case Hardened (Factory New)", 500)],
 
@@ -83,11 +86,16 @@ inputs = [
 
     # Test hive
     [(True, ("blue_hive", 5)), ("AWP | Electric Hive (Factory New)", 853)],
+    [(True, ("orange_hive", 6)), ("AWP | Electric Hive (Factory New)", 42)],
     [(False, None), ("AWP | Electric Hive (Factory New)", 500)],
 
     # Test moonrise
     [(True, ("star", 3)), ("Glock-18 | Moonrise (Factory New)", 66)],
     [(False, None), ("Glock-18 | Moonrise (Factory New)", 555)],
+
+    # Test nocts
+    [(True, ("max_black", -1)), ("★ Sport Gloves | Nocts (Field-Tested)", 231)],
+    [(False, None), ("★ Sport Gloves | Nocts (Field-Tested)", 123)],
 
     # Test paw
     [(True, ("golden_cat", -1)), ("AWP | Paw (Factory New)", 350)],
