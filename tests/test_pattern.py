@@ -1,13 +1,15 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "08.10.2025"
+__date__ = "15.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
 
 import unittest
 
-from cs2pattern import check_rare
+from cs2pattern import (abyss, berries, blaze, check_rare, fire_and_ice, gem_blue, gem_diamond, gem_gold, gem_green,
+                        gem_pink, gem_purple, gem_white, get_pattern_dict, grinder, hive_blue, hive_orange, moonrise,
+                        nocts, paw, phoenix, pussy)
 
 inputs = [
 
@@ -118,6 +120,126 @@ class TestPattern(unittest.TestCase):
         for expected, args in inputs:
             with self.subTest(args=args):
                 self.assertEqual(check_rare(*args), expected)
+
+
+class TestModularHelpers(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.patterns = get_pattern_dict()
+
+    def _expect_group(self, skin: str, weapon: str, group_name: str) -> tuple[list[int], bool]:
+        weapon_groups = self.patterns.get(skin, {}).get(weapon, [])
+        for group in weapon_groups:
+            if group.get('name') == group_name:
+                return list(group.get('pattern', [])), bool(group.get('ordered', False))
+        self.fail(f"Group '{group_name}' not found for skin '{skin}' and weapon '{weapon}'")
+
+    def test_simple_helpers(self):
+        cases = [
+            (abyss, 'abyss', 'ssg 08', 'white_scope'),
+            (blaze, 'case hardened', 'karambit', 'blaze'),
+            (gem_diamond, 'gamma doppler', 'karambit', 'gem_diamond'),
+            (gem_green, 'acid fade', 'ssg 08', 'gem_green'),
+            (gem_pink, 'pink ddpat', 'glock-18', 'gem_pink'),
+            (grinder, 'grinder', 'glock-18', 'max_black'),
+            (hive_blue, 'electric hive', 'awp', 'blue_hive'),
+            (hive_orange, 'electric hive', 'awp', 'orange_hive'),
+            (moonrise, 'moonrise', 'glock-18', 'star'),
+            (nocts, 'nocts', 'sport gloves', 'max_black'),
+            (phoenix, 'phoenix blacklight', 'galil ar', 'phoenix'),
+            (pussy, 'kami', 'five-seven', 'pussy'),
+        ]
+
+        for func, skin, weapon, group_name in cases:
+            with self.subTest(func=func.__name__):
+                expected = self._expect_group(skin, weapon, group_name)
+                self.assertEqual(func(), expected)
+
+    def test_berries_helper(self):
+        max_red, _ = self._expect_group('berries and cherries', 'five-seven', 'max_red')
+        max_blue, _ = self._expect_group('berries and cherries', 'five-seven', 'max_blue')
+        patterns, ordered = berries()
+        self.assertEqual(patterns, max_red + max_blue)
+        self.assertFalse(ordered)
+
+    def test_paw_helper(self):
+        golden, _ = self._expect_group('paw', 'awp', 'golden_cat')
+        stoner, _ = self._expect_group('paw', 'awp', 'stoner_cat')
+        patterns, ordered = paw()
+        self.assertEqual(patterns, golden + stoner)
+        self.assertFalse(ordered)
+
+    def test_fire_and_ice_helper(self):
+        for weapon in ['bayonet', 'flip knife', 'gut knife', 'karambit']:
+            with self.subTest(weapon=weapon):
+                expected = self._expect_group('marble fade', weapon, 'fire_and_ice')
+                self.assertEqual(fire_and_ice(weapon), expected)
+
+    def test_fire_and_ice_unsupported_weapon(self):
+        self.assertEqual(fire_and_ice('m9 bayonet'), ([], False))
+
+    def test_gem_blue_helper(self):
+        cases = {
+            'ak-47': 'case hardened',
+            'bayonet': 'case hardened',
+            'desert eagle': 'heat treated',
+            'five-seven': 'case hardened',
+            'flip knife': 'case hardened',
+            'karambit': 'case hardened',
+        }
+
+        for weapon, skin in cases.items():
+            with self.subTest(weapon=weapon):
+                expected = self._expect_group(skin, weapon, 'gem_blue')
+                self.assertEqual(gem_blue(weapon), expected)
+
+        self.assertEqual(gem_blue('butterfly knife'), ([], True))
+
+    def test_gem_gold_helper(self):
+        cases = {
+            'ak-47': 'case hardened',
+            'bayonet': 'case hardened',
+            'five-seven': 'case hardened',
+            'karambit': 'case hardened',
+        }
+
+        for weapon, skin in cases.items():
+            with self.subTest(weapon=weapon):
+                expected = self._expect_group(skin, weapon, 'gem_gold')
+                self.assertEqual(gem_gold(weapon), expected)
+
+        self.assertEqual(gem_gold('m4a1-s'), ([], False))
+
+    def test_gem_purple_helper(self):
+        cases = {
+            'desert eagle': 'heat treated',
+            'galil ar': 'sandstorm',
+            'tec-9': 'sandstorm',
+        }
+
+        for weapon, skin in cases.items():
+            with self.subTest(weapon=weapon):
+                expected = self._expect_group(skin, weapon, 'gem_purple')
+                self.assertEqual(gem_purple(weapon), expected)
+
+        self.assertEqual(gem_purple('ak-47'), ([], True))
+
+    def test_gem_white_helper(self):
+        cases = {
+            'stiletto knife': 'urban masked',
+            'skeleton knife': 'urban masked',
+            'classic knife': 'urban masked',
+            'flip knife': 'urban masked',
+            'm9 bayonet': 'urban masked',
+        }
+
+        for weapon, skin in cases.items():
+            with self.subTest(weapon=weapon):
+                expected = self._expect_group(skin, weapon, 'gem_white')
+                self.assertEqual(gem_white(weapon), expected)
+
+        self.assertEqual(gem_white('karambit'), ([], False))
 
 
 if __name__ == '__main__':
