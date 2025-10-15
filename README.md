@@ -5,7 +5,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![GPLv3 License][license-shield]][license-url]
 [![Xing][xing-shield]][xing-url]
 </div>
 
@@ -37,7 +37,7 @@ GPLv3 License. See the LICENSE file for details.
 [stars-url]: https://github.com/Helyux/cs2pattern/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Helyux/cs2pattern.svg?style=for-the-badge
 [issues-url]: https://github.com/Helyux/cs2pattern/issues
-[license-shield]: https://img.shields.io/github/license/Helyux/cs2pattern.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge
 [license-url]: https://github.com/Helyux/cs2pattern/blob/master/LICENSE
 [xing-shield]: https://img.shields.io/static/v1?style=for-the-badge&message=Xing&color=006567&logo=Xing&logoColor=FFFFFF&label
 [xing-url]: https://www.xing.com/profile/Lukas_Mahler10
