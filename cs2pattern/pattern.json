@@ -20,12 +20,12 @@
   "berries and cherries": {
     "five-seven": [
       {
-        "name": "max_blue",
+        "name": "gem_blue",
         "pattern": [80],
         "ordered": false
       },
       {
-        "name": "max_red",
+        "name": "gem_red",
         "pattern": [182],
         "ordered": false
       }

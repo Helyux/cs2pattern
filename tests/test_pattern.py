@@ -25,8 +25,8 @@ inputs = [
     [(False, None), ("AWP | Abyss (Fielt-dested)", 148)],
 
     # Test berries
-    [(True, ("max_blue", -1)), ("Five-SeveN | Berries And Cherries (Factory New)", 80)],
-    [(True, ("max_red", -1)), ("Five-SeveN | Berries And Cherries (Factory New)", 182)],
+    [(True, ("gem_blue", -1)), ("Five-SeveN | Berries And Cherries (Factory New)", 80)],
+    [(True, ("gem_red", -1)), ("Five-SeveN | Berries And Cherries (Factory New)", 182)],
     [(False, None), ("Five-SeveN | Berries And Cherries (Factory New)", 82)],
 
     # Test blaze
@@ -142,11 +142,11 @@ class TestModularHelpers(unittest.TestCase):
             (gem_diamond, 'gamma doppler', 'karambit', 'gem_diamond'),
             (gem_green, 'acid fade', 'ssg 08', 'gem_green'),
             (gem_pink, 'pink ddpat', 'glock-18', 'gem_pink'),
-            (grinder, 'grinder', 'glock-18', 'max_black'),
+            (grinder, 'grinder', 'glock-18', 'gem_black'),
             (hive_blue, 'electric hive', 'awp', 'blue_hive'),
             (hive_orange, 'electric hive', 'awp', 'orange_hive'),
             (moonrise, 'moonrise', 'glock-18', 'star'),
-            (nocts, 'nocts', 'sport gloves', 'max_black'),
+            (nocts, 'nocts', 'sport gloves', 'gem_black'),
             (phoenix, 'phoenix blacklight', 'galil ar', 'phoenix'),
             (pussy, 'kami', 'five-seven', 'pussy'),
         ]
@@ -157,10 +157,10 @@ class TestModularHelpers(unittest.TestCase):
                 self.assertEqual(func(), expected)
 
     def test_berries_helper(self):
-        max_red, _ = self._expect_group('berries and cherries', 'five-seven', 'max_red')
-        max_blue, _ = self._expect_group('berries and cherries', 'five-seven', 'max_blue')
+        gem_red_group, _ = self._expect_group('berries and cherries', 'five-seven', 'gem_red')
+        gem_blue_group, _ = self._expect_group('berries and cherries', 'five-seven', 'gem_blue')
         patterns, ordered = berries()
-        self.assertEqual(patterns, max_red + max_blue)
+        self.assertEqual(patterns, gem_red_group + gem_blue_group)
         self.assertFalse(ordered)
 
     def test_paw_helper(self):

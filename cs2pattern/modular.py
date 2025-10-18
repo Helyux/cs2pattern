@@ -78,14 +78,14 @@ def abyss() -> tuple[list[int], bool]:
 
 def berries() -> tuple[list[int], bool]:
     """
-    Return max red (182) or max blue (80) 'Five-SeveN | Berries and cherries' pattern list.
+    Return gem red (182) or gem blue (80) 'Five-SeveN | Berries and Cherries' pattern list.
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
-    red, _ = _lookup_group('berries and cherries', 'five-seven', 'max_red')
-    blue, _ = _lookup_group('berries and cherries', 'five-seven', 'max_blue')
+    red, _ = _lookup_group('berries and cherries', 'five-seven', 'gem_red')
+    blue, _ = _lookup_group('berries and cherries', 'five-seven', 'gem_blue')
     return red + blue, False
 
 
@@ -259,13 +259,13 @@ def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def grinder() -> tuple[list[int], bool]:
     """
-    Return a pattern list for max black 'Glock-18 | Grinder'.
+    Return a pattern list for gem black 'Glock-18 | Grinder'.
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
-    return _lookup_group('grinder', 'glock-18', 'max_black')
+    return _lookup_group('grinder', 'glock-18', 'gem_black')
 
 
 def hive_blue() -> tuple[list[int], bool]:
@@ -303,13 +303,13 @@ def moonrise() -> tuple[list[int], bool]:
 
 def nocts() -> tuple[list[int], bool]:
     """
-    Return a pattern list for max black '★ Sport Gloves | Nocts'.
+    Return a pattern list for gem black '★ Sport Gloves | Nocts'.
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
-    return _lookup_group('nocts', 'sport gloves', 'max_black')
+    return _lookup_group('nocts', 'sport gloves', 'gem_black')
 
 
 def paw() -> tuple[list[int], bool]:
