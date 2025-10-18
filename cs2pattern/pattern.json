@@ -3,8 +3,10 @@
     "ssg 08": [
       {
         "name": "white_scope",
-        "pattern": [54, 148, 167, 208, 669, 806, 911, 985],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          54, 148, 167, 208, 669, 806, 911, 985
+        ]
       }
     ]
   },
@@ -12,22 +14,28 @@
     "ssg 08": [
       {
         "name": "gem_green",
-        "pattern": [576, 575, 449],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          576, 575, 449
+        ]
       }
     ]
   },
   "berries and cherries": {
     "five-seven": [
       {
-        "name": "max_blue",
-        "pattern": [80],
-        "ordered": false
+        "name": "gem_blue",
+        "ordered": false,
+        "pattern": [
+          80
+        ]
       },
       {
-        "name": "max_red",
-        "pattern": [182],
-        "ordered": false
+        "name": "gem_red",
+        "ordered": false,
+        "pattern": [
+          182
+        ]
       }
     ]
   },
@@ -35,61 +43,81 @@
     "ak-47": [
       {
         "name": "gem_blue",
-        "pattern": [661, 670, 955, 179, 387, 151, 321, 592, 809, 555, 828, 760, 168, 617],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          661, 670, 955, 179, 387, 151, 321, 592, 809, 555, 828, 760, 168, 617
+        ]
       },
       {
         "name": "gem_gold",
-        "pattern": [784, 219],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          784, 219
+        ]
       }
     ],
     "bayonet": [
       {
         "name": "gem_blue",
-        "pattern": [555, 592, 670, 151, 179, 321],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          555, 592, 670, 151, 179, 321
+        ]
       },
       {
         "name": "gem_gold",
-        "pattern": [395],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          395
+        ]
       }
     ],
     "five-seven": [
       {
         "name": "gem_blue",
-        "pattern": [278, 690, 868, 670, 363, 872, 648, 532, 689, 321],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          278, 690, 868, 670, 363, 872, 648, 532, 689, 321
+        ]
       },
       {
         "name": "gem_gold",
-        "pattern": [691],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          691
+        ]
       }
     ],
     "flip knife": [
       {
         "name": "gem_blue",
-        "pattern": [670, 321, 151, 592, 661, 555],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          670, 321, 151, 592, 661, 555
+        ]
       }
     ],
     "karambit": [
       {
         "name": "gem_blue",
-        "pattern": [387, 888, 442, 853, 269, 470, 905, 809, 902, 776, 463, 73, 510],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          387, 888, 442, 853, 269, 470, 905, 809, 902, 776, 463, 73, 510
+        ]
       },
       {
         "name": "blaze",
-        "pattern": [819, 896, 939, 941],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          819, 896, 939, 941
+        ]
       },
       {
         "name": "gem_gold",
-        "pattern": [896, 231, 939, 388],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          896, 231, 939, 388
+        ]
       }
     ]
   },
@@ -97,13 +125,17 @@
     "awp": [
       {
         "name": "blue_hive",
-        "pattern": [273, 436, 902, 23, 853, 262],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          273, 436, 902, 23, 853, 262
+        ]
       },
       {
         "name": "orange_hive",
-        "pattern": [253, 54, 767, 611, 697, 42],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          253, 54, 767, 611, 697, 42
+        ]
       }
     ]
   },
@@ -111,17 +143,21 @@
     "karambit": [
       {
         "name": "gem_diamond",
-        "pattern": [547, 630, 311, 717, 445, 253, 746],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          547, 630, 311, 717, 445, 253, 746
+        ]
       }
     ]
   },
   "grinder": {
     "glock-18": [
       {
-        "name": "max_black",
-        "pattern": [384, 916, 811, 907],
-        "ordered": true
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          384, 916, 811, 907
+        ]
       }
     ]
   },
@@ -129,13 +165,17 @@
     "desert eagle": [
       {
         "name": "gem_purple",
-        "pattern": [172, 599, 156, 293, 29, 944, 133],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          172, 599, 156, 293, 29, 944, 133
+        ]
       },
       {
         "name": "gem_blue",
-        "pattern": [490, 148, 69, 704],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          490, 148, 69, 704
+        ]
       }
     ]
   },
@@ -143,8 +183,10 @@
     "five-seven": [
       {
         "name": "pussy",
-        "pattern": [590, 909],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          590, 909
+        ]
       }
     ]
   },
@@ -152,29 +194,37 @@
     "bayonet": [
       {
         "name": "fire_and_ice",
-        "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701
+        ]
       }
     ],
     "flip knife": [
       {
         "name": "fire_and_ice",
-        "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701
+        ]
       }
     ],
     "gut knife": [
       {
         "name": "fire_and_ice",
-        "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701
+        ]
       }
     ],
     "karambit": [
       {
         "name": "fire_and_ice",
-        "pattern": [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701
+        ]
       }
     ]
   },
@@ -182,17 +232,22 @@
     "glock-18": [
       {
         "name": "star",
-        "pattern": [58, 59, 66, 90, 102, 224, 601, 628, 694, 706, 837, 864],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          58, 59, 66, 90, 102, 224, 601, 628, 694, 706, 837, 864
+        ]
       }
     ]
   },
   "nocts": {
     "sport gloves": [
       {
-        "name": "max_black",
-        "pattern": [93, 125, 167, 231, 250, 277, 364, 374, 390, 402, 428, 441, 507, 562, 564, 575, 580, 612, 640, 647, 738, 866, 869, 894, 935, 945, 960],
-        "ordered": false
+        "name": "gem_black",
+        "ordered": false,
+        "pattern": [
+          93, 125, 167, 231, 250, 277, 364, 374, 390, 402, 428, 441, 507, 562,
+          564, 575, 580, 612, 640, 647, 738, 866, 869, 894, 935, 945, 960
+        ]
       }
     ]
   },
@@ -200,13 +255,17 @@
     "awp": [
       {
         "name": "golden_cat",
-        "pattern": [41, 350],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          41, 350
+        ]
       },
       {
         "name": "stoner_cat",
-        "pattern": [420],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          420
+        ]
       }
     ]
   },
@@ -214,8 +273,10 @@
     "galil ar": [
       {
         "name": "phoenix",
-        "pattern": [755, 963, 619, 978, 432, 289, 729],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          755, 963, 619, 978, 432, 289, 729
+        ]
       }
     ]
   },
@@ -223,8 +284,10 @@
     "glock-18": [
       {
         "name": "gem_pink",
-        "pattern": [568, 600],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          568, 600
+        ]
       }
     ]
   },
@@ -232,15 +295,93 @@
     "galil ar": [
       {
         "name": "gem_purple",
-        "pattern": [583, 761, 739, 178],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          583, 761, 739, 178
+        ]
       }
     ],
     "tec-9": [
       {
         "name": "gem_purple",
-        "pattern": [70, 328, 862, 583, 552],
-        "ordered": true
+        "ordered": true,
+        "pattern": [
+          70, 328, 862, 583, 552
+        ]
+      }
+    ]
+  },
+  "scorched": {
+    "classic knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          446, 791, 28
+        ]
+      }
+    ],
+    "flip knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          310, 994
+        ]
+      }
+    ],
+    "nomad knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          791, 446
+        ]
+      }
+    ],
+    "paracord knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          28, 446
+        ]
+      }
+    ],
+    "shadow daggers": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          730, 415
+        ]
+      }
+    ],
+    "skeleton knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          446, 791, 497, 28
+        ]
+      }
+    ],
+    "stiletto knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          791, 543
+        ]
+      }
+    ],
+    "ursus knife": [
+      {
+        "name": "gem_black",
+        "ordered": true,
+        "pattern": [
+          446, 791
+        ]
       }
     ]
   },
@@ -248,36 +389,46 @@
     "classic knife": [
       {
         "name": "gem_white",
-        "pattern": [402],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          402
+        ]
       }
     ],
     "flip knife": [
       {
         "name": "gem_white",
-        "pattern": [346],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          346
+        ]
       }
     ],
     "m9 bayonet": [
       {
         "name": "gem_white",
-        "pattern": [620],
-        "ordered": false
-      }
-    ],
-    "stiletto knife": [
-      {
-        "name": "gem_white",
-        "pattern": [402],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          620
+        ]
       }
     ],
     "skeleton knife": [
       {
         "name": "gem_white",
-        "pattern": [299],
-        "ordered": false
+        "ordered": false,
+        "pattern": [
+          299
+        ]
+      }
+    ],
+    "stiletto knife": [
+      {
+        "name": "gem_white",
+        "ordered": false,
+        "pattern": [
+          402
+        ]
       }
     ]
   }

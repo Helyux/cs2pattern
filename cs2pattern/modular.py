@@ -1,11 +1,67 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "08.10.2025"
+__date__ = "15.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
 
-from typing import Optional
+from typing import Optional, Sequence
+
+from cs2pattern.check import get_pattern_dict
+
+SPECIAL_PATTERN = get_pattern_dict()
+
+
+def _lookup_group(skin: str, weapon: str, group_name: str) -> tuple[list[int], bool]:
+    """
+    Retrieve pattern data for a single group from the shared pattern dictionary.
+
+    :param skin: Skin identifier (lower-case, matching the JSON keys).
+    :type skin: str
+    :param weapon: Weapon identifier (lower-case, matching the JSON keys).
+    :type weapon: str
+    :param group_name: Name of the group within the skin/weapon entry.
+    :type group_name: str
+
+    :return: A tuple containing the list of pattern ids and the ordered flag.
+    :rtype: tuple[list[int], bool]
+    """
+
+    groups = SPECIAL_PATTERN.get(skin, {}).get(weapon, [])
+    for group in groups:
+        if group.get('name') == group_name:
+            return list(group.get('pattern', [])), bool(group.get('ordered', False))
+    return [], False
+
+
+def _lookup_first_group(
+    weapon: str,
+    group_name: str,
+    skins: Sequence[str],
+    default_ordered: bool,
+) -> tuple[list[int], bool]:
+    """
+    Try to resolve a group across multiple skins for a given weapon.
+
+    :param weapon: Weapon identifier.
+    :type weapon: str
+    :param group_name: Group to retrieve.
+    :type group_name: str
+    :param skins: Skins to inspect in order until the group is found.
+    :type skins: Sequence[str]
+    :param default_ordered: Ordered flag to fall back to if no data is found.
+    :type default_ordered: bool
+
+    :return: The first matching pattern list and ordered flag, or defaults.
+    :rtype: tuple[list[int], bool]
+    """
+
+    weapon = weapon.lower()
+    for skin in skins:
+        patterns, ordered = _lookup_group(skin, weapon, group_name)
+        if patterns:
+            return patterns, ordered
+    return [], default_ordered
 
 
 def abyss() -> tuple[list[int], bool]:
@@ -17,18 +73,20 @@ def abyss() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [54, 148, 167, 208, 669, 806, 911, 985], False
+    return _lookup_group('abyss', 'ssg 08', 'white_scope')
 
 
 def berries() -> tuple[list[int], bool]:
     """
-    Return max red (182) or max blue (80) 'Five-SeveN | Berries and cherries' pattern list.
+    Return gem red (182) or gem blue (80) 'Five-SeveN | Berries and Cherries' pattern list.
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
-    return [182, 80], False
+    red, _ = _lookup_group('berries and cherries', 'five-seven', 'gem_red')
+    blue, _ = _lookup_group('berries and cherries', 'five-seven', 'gem_blue')
+    return red + blue, False
 
 
 def blaze() -> tuple[list[int], bool]:
@@ -39,7 +97,7 @@ def blaze() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [819, 896, 939, 941], False
+    return _lookup_group('case hardened', 'karambit', 'blaze')
 
 
 def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -54,12 +112,42 @@ def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
+    weapon_normalized = weapon.lower()
     weapon_options = {'bayonet', 'flip knife', 'gut knife', 'karambit'}
 
-    if weapon in weapon_options:
-        return [412, 16, 146, 241, 359, 393, 541, 602, 649, 688, 701], False
+    if weapon_normalized in weapon_options:
+        return _lookup_group('marble fade', weapon_normalized, 'fire_and_ice')
     else:
         return [], False
+
+
+def gem_black(weapon: str) -> tuple[list[int], bool]:
+    """
+    Return a pattern list for gem black 'Scorched' knives.
+
+    :param weapon: The weapon for which to return the pattern list
+    :type weapon: str
+
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
+    :rtype: tuple[list[int], bool]
+    """
+
+    weapon_options = {
+        'classic knife': ('scorched',),
+        'flip knife': ('scorched',),
+        'nomad knife': ('scorched',),
+        'paracord knife': ('scorched',),
+        'shadow daggers': ('scorched',),
+        'skeleton knife': ('scorched',),
+        'stiletto knife': ('scorched',),
+        'ursus knife': ('scorched',),
+    }
+
+    weapon_normalized = weapon.lower()
+    skins = weapon_options.get(weapon_normalized)
+    if not skins:
+        return [], True
+    return _lookup_first_group(weapon_normalized, 'gem_black', skins, True)
 
 
 def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -73,16 +161,20 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
-    weapon_options = {
-        'ak-47': [661, 670, 955, 179, 387, 151, 321, 592, 809, 555, 828, 760, 168, 617],
-        'bayonet': [555, 592, 670, 151, 179, 321],
-        'desert eagle': [490, 148, 69, 704],
-        'five-seven': [278, 690, 868, 670, 363, 872, 648, 532, 689, 321],
-        'flip knife': [670, 321, 151, 592, 661, 555],
-        'karambit': [387, 888, 442, 853, 269, 470, 905, 809, 902, 776, 463, 73, 510],
+    skin_options = {
+        'ak-47': ('case hardened',),
+        'bayonet': ('case hardened',),
+        'desert eagle': ('heat treated',),
+        'five-seven': ('case hardened',),
+        'flip knife': ('case hardened',),
+        'karambit': ('case hardened',),
     }
 
-    return weapon_options.get(weapon, []), True
+    weapon_normalized = weapon.lower()
+    skins = skin_options.get(weapon_normalized)
+    if not skins:
+        return [], True
+    return _lookup_first_group(weapon_normalized, 'gem_blue', skins, True)
 
 
 def gem_diamond() -> tuple[list[int], bool]:
@@ -94,7 +186,7 @@ def gem_diamond() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [547, 630, 311, 717, 445, 253, 746], True
+    return _lookup_group('gamma doppler', 'karambit', 'gem_diamond')
 
 
 def gem_gold(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -108,14 +200,18 @@ def gem_gold(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
-    weapon_options = {
-        'ak-47': [784, 219],
-        'bayonet': [395],
-        'five-seven': [691],
-        'karambit': [231, 388],
+    skin_options = {
+        'ak-47': ('case hardened',),
+        'bayonet': ('case hardened',),
+        'five-seven': ('case hardened',),
+        'karambit': ('case hardened',),
     }
 
-    return weapon_options.get(weapon, []), False
+    weapon_normalized = weapon.lower()
+    skins = skin_options.get(weapon_normalized)
+    if not skins:
+        return [], False
+    return _lookup_first_group(weapon_normalized, 'gem_gold', skins, False)
 
 
 def gem_green() -> tuple[list[int], bool]:
@@ -126,7 +222,7 @@ def gem_green() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [576, 575, 449], True
+    return _lookup_group('acid fade', 'ssg 08', 'gem_green')
 
 
 def gem_pink() -> tuple[list[int], bool]:
@@ -137,7 +233,7 @@ def gem_pink() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [568, 600], False
+    return _lookup_group('pink ddpat', 'glock-18', 'gem_pink')
 
 
 def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -151,13 +247,17 @@ def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
-    weapon_options = {
-        'desert eagle': [172, 599, 156, 293, 29, 944, 133],
-        'galil ar': [583, 761, 739, 178],
-        'tec-9': [70, 328, 862, 583, 552],
+    skin_options = {
+        'desert eagle': ('heat treated',),
+        'galil ar': ('sandstorm',),
+        'tec-9': ('sandstorm',),
     }
 
-    return weapon_options.get(weapon, []), True
+    weapon_normalized = weapon.lower()
+    skins = skin_options.get(weapon_normalized)
+    if not skins:
+        return [], True
+    return _lookup_first_group(weapon_normalized, 'gem_purple', skins, True)
 
 
 def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -171,26 +271,30 @@ def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
-    weapon_options = {
-        'stiletto knife': [402],
-        'skeleton knife': [299],
-        'classic knife': [402],
-        'flip knife': [346],
-        'm9 bayonet': [620],
+    skin_options = {
+        'stiletto knife': ('urban masked',),
+        'skeleton knife': ('urban masked',),
+        'classic knife': ('urban masked',),
+        'flip knife': ('urban masked',),
+        'm9 bayonet': ('urban masked',),
     }
 
-    return weapon_options.get(weapon, []), False
+    weapon_normalized = weapon.lower()
+    skins = skin_options.get(weapon_normalized)
+    if not skins:
+        return [], False
+    return _lookup_first_group(weapon_normalized, 'gem_white', skins, False)
 
 
 def grinder() -> tuple[list[int], bool]:
     """
-    Return a pattern list for max black 'Glock-18 | Grinder'.
+    Return a pattern list for gem black 'Glock-18 | Grinder'.
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
-    return [384, 916, 811, 907], True
+    return _lookup_group('grinder', 'glock-18', 'gem_black')
 
 
 def hive_blue() -> tuple[list[int], bool]:
@@ -201,7 +305,7 @@ def hive_blue() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [273, 436, 902, 23, 853, 262], True
+    return _lookup_group('electric hive', 'awp', 'blue_hive')
 
 
 def hive_orange() -> tuple[list[int], bool]:
@@ -212,7 +316,7 @@ def hive_orange() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [253, 54, 767, 611, 697, 42], True
+    return _lookup_group('electric hive', 'awp', 'orange_hive')
 
 
 def moonrise() -> tuple[list[int], bool]:
@@ -223,19 +327,18 @@ def moonrise() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [58, 59, 66, 90, 102, 224, 601, 628, 694, 706, 837, 864], True
+    return _lookup_group('moonrise', 'glock-18', 'star')
 
 
 def nocts() -> tuple[list[int], bool]:
     """
-    Return a pattern list for max black '★ Sport Gloves | Nocts'.
+    Return a pattern list for gem black '★ Sport Gloves | Nocts'.
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
     :rtype: tuple[list[int], bool]
     """
 
-    return [93, 125, 167, 250, 277, 364, 374, 390, 402, 428, 441, 507, 562, 564, 575, 580, 612, 640, 647, 738, 866,
-            869, 894, 935, 945, 960], False
+    return _lookup_group('nocts', 'sport gloves', 'gem_black')
 
 
 def paw() -> tuple[list[int], bool]:
@@ -248,7 +351,9 @@ def paw() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [41, 350, 420], False
+    golden, _ = _lookup_group('paw', 'awp', 'golden_cat')
+    stoner, _ = _lookup_group('paw', 'awp', 'stoner_cat')
+    return golden + stoner, False
 
 
 def phoenix() -> tuple[list[int], bool]:
@@ -259,7 +364,7 @@ def phoenix() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [755, 963, 619, 978, 432, 289, 729], True
+    return _lookup_group('phoenix blacklight', 'galil ar', 'phoenix')
 
 
 def pussy() -> tuple[list[int], bool]:
@@ -270,7 +375,7 @@ def pussy() -> tuple[list[int], bool]:
     :rtype: tuple[list[int], bool]
     """
 
-    return [590, 909], False
+    return _lookup_group('kami', 'five-seven', 'pussy')
 
 
 if __name__ == '__main__':

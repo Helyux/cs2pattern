@@ -24,11 +24,6 @@ def check_date_match(file_path: str) -> bool:
 
     date_format = "%d.%m.%Y"
     current_date = datetime.datetime.now().strftime(date_format)
-    file_modification_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path)).strftime(date_format)
-    if file_modification_date != current_date:
-        # Ignore files that haven't been modified today
-        return True
-
     with open(file_path, 'r', encoding='UTF-8') as file:
         lines = file.readlines()
 
