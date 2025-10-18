@@ -14,6 +14,7 @@ __all__ = [
     'berries',
     'blaze',
     'fire_and_ice',
+    'gem_black',
     'gem_blue',
     'gem_diamond',
     'gem_gold',
@@ -29,7 +30,6 @@ __all__ = [
     'paw',
     'phoenix',
     'pussy',
-    'gem_black',
 ]
 
 

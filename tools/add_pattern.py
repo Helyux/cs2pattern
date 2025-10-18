@@ -15,6 +15,8 @@ from typing import Dict, Iterable, List, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 PATTERN_FILE = ROOT / "cs2pattern" / "pattern.json"
+MAX_JSON_LINE = 80
+INDENT = "  "
 
 
 class PatternToolError(Exception):
@@ -66,9 +68,56 @@ def _load_pattern_data() -> Dict:
 
 
 def _write_pattern_data(data: Dict) -> None:
-    with PATTERN_FILE.open("w", encoding="utf-8") as handle:
-        json.dump(data, handle, indent=2, sort_keys=True)
-        handle.write("\n")
+    formatted = _format_json(data)
+    PATTERN_FILE.write_text(formatted + "\n", encoding="utf-8")
+
+
+def _format_json(data, level: int = 0) -> str:
+    if isinstance(data, dict):
+        if not data:
+            return "{}"
+        lines: List[str] = ["{"]
+        items = list(data.items())
+        for index, (key, value) in enumerate(items):
+            value_repr = _format_json(value, level + 1)
+            comma = "," if index < len(items) - 1 else ""
+            lines.append(f"{INDENT * (level + 1)}{json.dumps(key)}: {value_repr}{comma}")
+        lines.append(f"{INDENT * level}}}")
+        return "\n".join(lines)
+
+    if isinstance(data, list):
+        if not data:
+            return "[]"
+        if all(isinstance(item, int) for item in data):
+            return _format_int_list(data, level)
+
+        lines = ["["]
+        for index, item in enumerate(data):
+            item_repr = _format_json(item, level + 1)
+            comma = "," if index < len(data) - 1 else ""
+            lines.append(f"{INDENT * (level + 1)}{item_repr}{comma}")
+        lines.append(f"{INDENT * level}]")
+        return "\n".join(lines)
+
+    if isinstance(data, bool):
+        return "true" if data else "false"
+    if data is None:
+        return "null"
+    return json.dumps(data)
+
+
+def _format_int_list(values: List[int], level: int) -> str:
+    indent = INDENT * (level + 1)
+    content = ", ".join(str(value) for value in values)
+    wrapped = textwrap.wrap(
+        content,
+        width=max(1, MAX_JSON_LINE - len(indent)),
+        break_long_words=False,
+        break_on_hyphens=False,
+    )
+    lines = [indent + line for line in wrapped]
+    closing_indent = INDENT * level
+    return "[\n" + "\n".join(lines) + f"\n{closing_indent}]"
 
 
 def _read_file(path: Path) -> str:
@@ -147,19 +196,28 @@ def _update_modular_helper(
     if f"def {helper_name}" in content:
         raise PatternToolError(f"Helper '{helper_name}' already exists in cs2pattern.modular.")
 
-    insertion_marker = "\n\nif __name__ == '__main__':"
-    marker_index = content.find(insertion_marker)
-    if marker_index == -1:
+    skin_key = skin.lower()
+
+    public_defs = [
+        (match.group(1), match.start())
+        for match in re.finditer(r"\ndef\s+([a-zA-Z0-9_]+)\s*\(", content)
+        if not match.group(1).startswith("_")
+    ]
+
+    insertion_index = content.find("\n\nif __name__ == '__main__':")
+    if insertion_index == -1:
         raise PatternToolError("Unable to locate insertion marker in cs2pattern.modular.")
 
-    skin_key = skin.lower()
+    for name, position in public_defs:
+        if name > helper_name:
+            insertion_index = position
+            break
+
     ordered_literal = "True" if ordered else "False"
 
     if len(weapon_patterns) == 1:
         weapon = next(iter(weapon_patterns.keys()))
-        helper_code = textwrap.dedent(
-            f"""
-
+        helper_template = f"""
 def {helper_name}() -> tuple[list[int], bool]:
     \"\"\"
     Auto-generated helper for '{skin}' pattern group '{group_name}'.
@@ -167,32 +225,30 @@ def {helper_name}() -> tuple[list[int], bool]:
 
     return _lookup_group('{skin_key}', '{weapon}', '{group_name}')
 """
-        )
+        helper_code = "\n" + textwrap.dedent(helper_template)
     else:
         mapping_lines = "\n".join(
             f"        '{weapon}': ('{skin_key}',)," for weapon in weapon_patterns.keys()
         )
-        helper_code = textwrap.dedent(
-            f"""
-
+        helper_template = f"""
 def {helper_name}(weapon: str) -> tuple[list[int], bool]:
     \"\"\"
     Auto-generated helper for '{skin}' pattern group '{group_name}'.
     \"\"\"
 
-    weapon_normalized = weapon.lower()
     weapon_options = {{
 {mapping_lines}
     }}
 
+    weapon_normalized = weapon.lower()
     skins = weapon_options.get(weapon_normalized)
     if not skins:
         return [], {ordered_literal}
     return _lookup_first_group(weapon_normalized, '{group_name}', skins, {ordered_literal})
 """
-        )
+        helper_code = "\n" + textwrap.dedent(helper_template)
 
-    updated = content[:marker_index] + helper_code + insertion_marker + content[marker_index + len(insertion_marker):]
+    updated = content[:insertion_index] + helper_code + content[insertion_index:]
     _write_file(modular_path, updated)
 
 
@@ -215,6 +271,7 @@ def _update_init(helper_name: str) -> None:
         return
 
     entries.append(helper_name)
+    entries = sorted(set(entries))
     new_list = "__all__ = [\n" + "".join(f"    '{entry}',\n" for entry in entries) + "]\n"
     updated = content[:start] + new_list + content[list_end + 2:]
     _write_file(init_path, updated)
@@ -233,22 +290,23 @@ def _update_test_import(helper_name: str) -> None:
         raise PatternToolError("Unable to locate import block terminator in tests/test_pattern.py.")
 
     block = content[start:end]
-    existing = []
+    existing: List[str] = []
     for line in block.splitlines()[1:]:
-        stripped = line.strip().rstrip(",")
-        if not stripped:
+        cleaned = line.strip()
+        if not cleaned:
             continue
-        if stripped not in existing:
-            existing.append(stripped)
+        if cleaned.endswith(","):
+            cleaned = cleaned[:-1]
+        for item in cleaned.split(","):
+            name = item.strip()
+            if name and name not in existing:
+                existing.append(name)
 
     if helper_name in existing:
         return
 
-    insert_index = next(
-        (index for index, name in enumerate(existing) if helper_name < name),
-        len(existing),
-    )
-    existing.insert(insert_index, helper_name)
+    existing.append(helper_name)
+    existing = sorted(existing)
 
     reconstructed = "from cs2pattern import (\n" + "\n".join(f"    {name}," for name in existing) + "\n)"
     updated = content[:start] + reconstructed + "\n" + content[end + 2:]
@@ -259,14 +317,36 @@ def _append_single_helper_test_case(helper_name: str, skin: str, weapon: str, gr
     test_path = ROOT / "tests" / "test_pattern.py"
     content = _read_file(test_path)
 
-    marker = "\n        ]\n\n        for func, skin, weapon, group_name in cases:\n"
-    if marker not in content:
+    cases_marker = "    def test_simple_helpers(self):\n        cases = [\n"
+    start_index = content.find(cases_marker)
+    if start_index == -1:
         raise PatternToolError("Unable to locate cases list in TestModularHelpers.")
 
-    insertion = (
-        f"\n            ({helper_name}, '{skin.lower()}', '{weapon}', '{group_name}'),"
-    )
-    updated = content.replace(marker, insertion + marker, 1)
+    list_start = start_index + len(cases_marker)
+    list_end = content.find("        ]\n\n        for func, skin, weapon, group_name in cases:\n", list_start)
+    if list_end == -1:
+        raise PatternToolError("Unable to locate cases terminator in TestModularHelpers.")
+
+    existing_block = content[list_start:list_end]
+    entries = [line for line in existing_block.splitlines() if line.strip()]
+
+    new_entry = f"            ({helper_name}, '{skin.lower()}', '{weapon}', '{group_name}'),"
+
+    helper_entries: Dict[str, str] = {}
+
+    for entry in entries:
+        name_match = re.search(r"\(\s*([a-zA-Z0-9_]+)", entry)
+        if not name_match:
+            continue
+        name = name_match.group(1)
+        helper_entries[name] = entry
+
+    helper_entries[helper_name] = new_entry
+
+    sorted_entries = [helper_entries[name] for name in sorted(helper_entries)]
+    rebuilt_block = "\n".join(sorted_entries) + ("\n" if sorted_entries else "")
+
+    updated = content[:list_start] + rebuilt_block + content[list_end:]
     _write_file(test_path, updated)
 
 
@@ -285,26 +365,26 @@ def _append_multi_helper_test(
 
     weapon_list = ", ".join(f"'{weapon}'" for weapon in weapons)
     ordered_literal = "True" if ordered else "False"
-    method = textwrap.dedent(
+    method_body = textwrap.dedent(
         f"""
+def test_{helper_name}_helper(self):
+    weapons = [{weapon_list}]
 
-    def test_{helper_name}_helper(self):
-        weapons = [{weapon_list}]
+    for weapon in weapons:
+        with self.subTest(weapon=weapon):
+            expected = self._expect_group('{skin.lower()}', weapon, '{group_name}')
+            self.assertEqual({helper_name}(weapon), expected)
 
-        for weapon in weapons:
-            with self.subTest(weapon=weapon):
-                expected = self._expect_group('{skin.lower()}', weapon, '{group_name}')
-                self.assertEqual({helper_name}(weapon), expected)
-
-        self.assertEqual({helper_name}('unsupported'), ([], {ordered_literal}))
+    self.assertEqual({helper_name}('unsupported'), ([], {ordered_literal}))
 """
-    )
+    ).strip("\n")
+    method = "\n" + textwrap.indent(method_body, INDENT) + "\n"
 
     marker = "\n\nif __name__ == '__main__':"
     if marker not in content:
         raise PatternToolError("Unable to locate tests sentinel for insertion.")
 
-    updated = content.replace(marker, method + marker, 1)
+    updated = content.replace(marker, "\n" + method + marker, 1)
     _write_file(test_path, updated)
 
 
