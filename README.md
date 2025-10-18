@@ -21,6 +21,61 @@
 pip install cs2pattern
 ```
 
+## Usage
+
+### Quick start
+
+```python
+from cs2pattern import check_rare
+
+is_rare, details = check_rare("★ Karambit | Case Hardened (Factory New)", 941)
+if is_rare:
+    pattern_name, index = details
+    print(f"Rare pattern: {pattern_name} (index {index})")
+else:
+    print("Nothing special here.")
+```
+
+### Modular helpers
+
+When you already know the skin family you care about, import the helper functions:
+
+```python
+from cs2pattern import gem_black
+
+patterns, ordered = gem_black("skeleton knife")
+print("Patterns:", patterns)
+print("Ordered:", ordered)
+```
+
+Helper names match the pattern groups inside `pattern.json`, so you can discover what is available by calling `get_pattern_dict()` and inspecting the keys.
+
+### Raw catalog access
+
+```python
+from cs2pattern import get_pattern_dict
+
+catalog = get_pattern_dict()
+scorched_ursus = catalog["scorched"]["ursus knife"][0]
+print(scorched_ursus["pattern"])
+```
+
+### Maintaining pattern data
+
+The repository ships with a helper script that keeps `pattern.json`, the modular helpers, and the unit tests aligned:
+
+```bash
+python tools/add_pattern.py \
+  --skin "Scorched" \
+  --name gem_black \
+  --weapon "skeleton knife:446 791 497 28" \
+  --weapon "stiletto knife:791 543" \
+  --ordered \
+  --helper gem_black
+```
+
+Run `pytest` after modifying the catalog to ensure everything stays in sync.
+
 ## Contributing
 Contributions are welcome! Open an issue or submit a pull request.
 
