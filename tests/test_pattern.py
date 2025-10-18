@@ -7,9 +7,11 @@ __status__ = "Production"
 
 import unittest
 
-from cs2pattern import (abyss, berries, blaze, check_rare, fire_and_ice, gem_blue, gem_diamond, gem_gold, gem_green,
-                        gem_pink, gem_purple, gem_white, get_pattern_dict, grinder, hive_blue, hive_orange, moonrise,
-                        nocts, paw, phoenix, pussy)
+from cs2pattern import (
+    gem_black,
+    gem_pink, gem_purple, gem_white, get_pattern_dict, grinder, hive_blue, hive_orange, moonrise,
+    nocts, paw, phoenix, pussy,
+)
 
 inputs = [
 
@@ -240,6 +242,17 @@ class TestModularHelpers(unittest.TestCase):
                 self.assertEqual(gem_white(weapon), expected)
 
         self.assertEqual(gem_white('karambit'), ([], False))
+
+
+def test_gem_black_helper(self):
+    weapons = ['skeleton knife', 'stiletto knife', 'classic knife', 'ursus knife', 'paracord knife', 'nomad knife', 'shadow daggers', 'flip knife']
+
+    for weapon in weapons:
+        with self.subTest(weapon=weapon):
+            expected = self._expect_group('scorched', weapon, 'gem_black')
+            self.assertEqual(gem_black(weapon), expected)
+
+    self.assertEqual(gem_black('unsupported'), ([], True))
 
 
 if __name__ == '__main__':

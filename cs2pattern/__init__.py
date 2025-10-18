@@ -10,7 +10,6 @@ from cs2pattern.modular import *
 __all__ = [
     'check_rare',
     'get_pattern_dict',
-
     'abyss',
     'berries',
     'blaze',
@@ -29,7 +28,8 @@ __all__ = [
     'nocts',
     'paw',
     'phoenix',
-    'pussy'
+    'pussy',
+    'gem_black',
 ]
 
 

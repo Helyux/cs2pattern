@@ -349,5 +349,34 @@ def pussy() -> tuple[list[int], bool]:
     return _lookup_group('kami', 'five-seven', 'pussy')
 
 
+def gem_black(weapon: str) -> tuple[list[int], bool]:
+    """
+    Return a pattern list for blackgem 'Scorched' skins.
+
+    :param weapon: The weapon for which to return the pattern list
+    :type weapon: str
+
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
+    :rtype: Optional[tuple[list[int], bool]]
+    """
+
+    weapon_normalized = weapon.lower()
+    weapon_options = {
+        'skeleton knife': ('scorched',),
+        'stiletto knife': ('scorched',),
+        'classic knife': ('scorched',),
+        'ursus knife': ('scorched',),
+        'paracord knife': ('scorched',),
+        'nomad knife': ('scorched',),
+        'shadow daggers': ('scorched',),
+        'flip knife': ('scorched',),
+    }
+
+    skins = weapon_options.get(weapon_normalized)
+    if not skins:
+        return [], True
+    return _lookup_first_group(weapon_normalized, 'gem_black', skins, True)
+
+
 if __name__ == '__main__':
     exit(1)
