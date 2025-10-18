@@ -77,7 +77,7 @@ def _format_json(data, level: int = 0) -> str:
         if not data:
             return "{}"
         lines: List[str] = ["{"]
-        items = list(data.items())
+        items = sorted(data.items(), key=lambda item: item[0])
         for index, (key, value) in enumerate(items):
             value_repr = _format_json(value, level + 1)
             comma = "," if index < len(items) - 1 else ""
