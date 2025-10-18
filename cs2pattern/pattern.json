@@ -119,7 +119,7 @@
   "grinder": {
     "glock-18": [
       {
-        "name": "max_black",
+        "name": "gem_black",
         "pattern": [384, 916, 811, 907],
         "ordered": true
       }
@@ -190,7 +190,7 @@
   "nocts": {
     "sport gloves": [
       {
-        "name": "max_black",
+        "name": "gem_black",
         "pattern": [93, 125, 167, 231, 250, 277, 364, 374, 390, 402, 428, 441, 507, 562, 564, 575, 580, 612, 640, 647, 738, 866, 869, 894, 935, 945, 960],
         "ordered": false
       }

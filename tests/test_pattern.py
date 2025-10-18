@@ -83,7 +83,7 @@ inputs = [
     [(False, None), ("★ Skeleton Knife | Urban Masked (Factory New)", 403)],
 
     # Test grinder
-    [(True, ("max_black", 1)), ("Glock-18 | Grinder (Factory New)", 384)],
+    [(True, ("gem_black", 1)), ("Glock-18 | Grinder (Factory New)", 384)],
     [(False, None), ("Glock-18 | Grinder (Factory New)", 123)],
 
     # Test hive
@@ -96,7 +96,7 @@ inputs = [
     [(False, None), ("Glock-18 | Moonrise (Factory New)", 555)],
 
     # Test nocts
-    [(True, ("max_black", -1)), ("★ Sport Gloves | Nocts (Field-Tested)", 231)],
+    [(True, ("gem_black", -1)), ("★ Sport Gloves | Nocts (Field-Tested)", 231)],
     [(False, None), ("★ Sport Gloves | Nocts (Field-Tested)", 123)],
 
     # Test paw
