@@ -48,9 +48,9 @@ print("Patterns:", patterns)
 print("Ordered:", ordered)
 ```
 
-Helper names match the pattern groups inside `pattern.json`, so you can discover what is available by calling `get_pattern_dict()` and inspecting the keys.
-
 ### Raw catalog access
+
+Helper names match the pattern groups inside `pattern.json`, so you can discover what is available by calling `get_pattern_dict()` and inspecting the keys.
 
 ```python
 from cs2pattern import get_pattern_dict
@@ -59,22 +59,6 @@ catalog = get_pattern_dict()
 scorched_ursus = catalog["scorched"]["ursus knife"][0]
 print(scorched_ursus["pattern"])
 ```
-
-### Maintaining pattern data
-
-The repository ships with a helper script that keeps `pattern.json`, the modular helpers, and the unit tests aligned:
-
-```bash
-python tools/add_pattern.py \
-  --skin "Scorched" \
-  --name gem_black \
-  --weapon "skeleton knife:446 791 497 28" \
-  --weapon "stiletto knife:791 543" \
-  --ordered \
-  --helper gem_black
-```
-
-Run `pytest` after modifying the catalog to ensure everything stays in sync.
 
 ## Contributing
 Contributions are welcome! Open an issue or submit a pull request.
