@@ -77,7 +77,7 @@ GPLv3 License. See the LICENSE file for details.
 [stars-url]: https://github.com/Helyux/cs2pattern/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Helyux/cs2pattern.svg?style=for-the-badge
 [issues-url]: https://github.com/Helyux/cs2pattern/issues
-[downloads-shield]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fv2%2Fprojects%2Fcs2pattern&query=%24.total_downloads&label=Downloads&suffix=%20total&style=for-the-badge
+[downloads-shield]: https://img.shields.io/pepy/dt/cs2pattern?style=for-the-badge
 [downloads-url]: https://pepy.tech/project/cs2pattern
 [license-shield]: https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge
 [license-url]: https://github.com/Helyux/cs2pattern/blob/master/LICENSE
