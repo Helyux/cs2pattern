@@ -98,6 +98,13 @@ inputs = [
     # Test gem purple
     [(True, ("gem_purple", 2)), ("Desert Eagle | Heat Treated (Factory New)", 599)],
     [(False, None), ("Desert Eagle | Heat Treated (Factory New)", 999)],
+    [(True, ("gem_purple", 1)), ("Tec-9 | Sandstorm (Factory New)", 328)],
+    [(True, ("gem_purple", 2)), ("Tec-9 | Sandstorm (Factory New)", 862)],
+    [(True, ("gem_purple", 3)), ("Tec-9 | Sandstorm (Factory New)", 70)],
+    [(True, ("gem_purple", 4)), ("Tec-9 | Sandstorm (Factory New)", 552)],
+    [(True, ("gem_purple", 5)), ("Tec-9 | Sandstorm (Factory New)", 83)],
+    [(True, ("gem_purple", 6)), ("Tec-9 | Sandstorm (Factory New)", 583)],
+    [(False, None), ("Tec-9 | Sandstorm (Factory New)", 123)],
 
     # Test gem white
     [(True, ("gem_white", -1)), ("★ Skeleton Knife | Urban Masked (Factory New)", 299)],
