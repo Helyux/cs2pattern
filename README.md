@@ -14,7 +14,7 @@
 
 ## Overview
 
-`cs2pattern` is a python package used to identify different rare pattern from cs2 skins given a pattern number.
+`cs2pattern` is a python package used to identify different rare pattern from counter-strike skins given a pattern number.
 
 ## Installation
 
