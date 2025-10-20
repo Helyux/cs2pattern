@@ -14,7 +14,7 @@
 
 ## Overview
 
-`cs2pattern` is a python package used for working with cs2 paint seeds, aka pattern.
+`cs2pattern` is a python package used to identify different rare pattern from counter-strike skins given a pattern number.
 
 ## Installation
 
@@ -26,15 +26,18 @@ pip install cs2pattern
 
 ### Quick start
 
+To check if your skin has a rare pattern:
+
 ```python
 from cs2pattern import check_rare
 
-is_rare, details = check_rare("★ Karambit | Case Hardened (Factory New)", 941)
+# Provide full item name and pattern number
+is_rare, details = check_rare("★ Karambit | Case Hardened (Factory New)", 269)
 if is_rare:
-    pattern_name, index = details
-    print(f"Rare pattern: {pattern_name} (index {index})")
-else:
-    print("Nothing special here.")
+    rare_name, rank = details
+    print(f"Rare pattern: {rare_name} (rank {rank})")
+
+#=> Rare pattern: gem_blue (rank 5)
 ```
 
 ### Modular helpers
@@ -45,8 +48,9 @@ When you already know the skin family you care about, import the helper function
 from cs2pattern import gem_black
 
 patterns, ordered = gem_black("skeleton knife")
-print("Patterns:", patterns)
-print("Ordered:", ordered)
+print(f"Patterns: {patterns} / Ordered: {ordered}")
+
+#=> Patterns: [446, 791, 497, 28] / Ordered: True
 ```
 
 ### Raw catalog access
@@ -59,6 +63,8 @@ from cs2pattern import get_pattern_dict
 catalog = get_pattern_dict()
 scorched_ursus = catalog["scorched"]["ursus knife"][0]
 print(scorched_ursus["pattern"])
+
+#=> [446, 791]
 ```
 
 ## Contributing
