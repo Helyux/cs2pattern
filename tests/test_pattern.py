@@ -98,7 +98,6 @@ inputs = [
     # Test gem purple
     [(True, ("gem_purple", 2)), ("Desert Eagle | Heat Treated (Factory New)", 599)],
     [(False, None), ("Desert Eagle | Heat Treated (Factory New)", 999)],
-    # Tec-9 Sandstorm gem purple order
     [(True, ("gem_purple", 1)), ("Tec-9 | Sandstorm (Factory New)", 328)],
     [(True, ("gem_purple", 2)), ("Tec-9 | Sandstorm (Factory New)", 862)],
     [(True, ("gem_purple", 3)), ("Tec-9 | Sandstorm (Factory New)", 70)],
