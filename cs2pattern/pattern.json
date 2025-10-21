@@ -139,6 +139,53 @@
       }
     ]
   },
+  "fade": {
+    "awp": [
+      {
+        "name": "fade",
+        "ordered": true,
+        "pattern": [
+          412, 602, 359, 649, 393, 701, 16, 146, 688, 541
+        ]
+      }
+    ],
+    "karambit": [
+      {
+        "name": "fade",
+        "ordered": true,
+        "pattern": [
+          412, 602, 359, 649, 393, 701, 16, 146, 688, 541
+        ]
+      }
+    ],
+    "m9 bayonet": [
+      {
+        "name": "fade",
+        "ordered": true,
+        "pattern": [
+          763, 575, 897, 636, 341, 93, 403, 910, 468, 326
+        ]
+      }
+    ],
+    "m4a1-s": [
+      {
+        "name": "fade",
+        "ordered": true,
+        "pattern": [
+          374, 279, 80, 441, 666, 786, 73, 382, 774, 873
+        ]
+      }
+    ],
+    "talon knife": [
+      {
+        "name": "fade",
+        "ordered": true,
+        "pattern": [
+          412, 602, 359, 649, 393, 701, 16, 146, 688, 541
+        ]
+      }
+    ]
+  },
   "gamma doppler": {
     "karambit": [
       {

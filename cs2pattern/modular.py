@@ -100,6 +100,32 @@ def blaze() -> tuple[list[int], bool]:
     return _lookup_group('case hardened', 'karambit', 'blaze')
 
 
+def fade(weapon: str) -> tuple[list[int], bool]:
+    """
+    Return a pattern list for fade-highlighted skins.
+
+    :param weapon: The weapon for which to return the pattern list
+    :type weapon: str
+
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
+    :rtype: tuple[list[int], bool]
+    """
+
+    weapon_options = {
+        'awp': ('fade',),
+        'karambit': ('fade',),
+        'm9 bayonet': ('fade',),
+        'm4a1-s': ('fade',),
+        'talon knife': ('fade',),
+    }
+
+    weapon_normalized = weapon.lower()
+    skins = weapon_options.get(weapon_normalized)
+    if not skins:
+        return [], True
+    return _lookup_first_group(weapon_normalized, 'fade', skins, True)
+
+
 def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
     Return a pattern list for 1st and 2nd max fire & ice pattern 'Marble Fade' skins.
@@ -112,13 +138,18 @@ def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     :rtype: Optional[tuple[list[int], bool]]
     """
 
-    weapon_normalized = weapon.lower()
-    weapon_options = {'bayonet', 'flip knife', 'gut knife', 'karambit'}
+    weapon_options = {
+        'bayonet': ('marble fade',),
+        'flip knife': ('marble fade',),
+        'gut knife': ('marble fade',),
+        'karambit': ('marble fade',),
+    }
 
-    if weapon_normalized in weapon_options:
-        return _lookup_group('marble fade', weapon_normalized, 'fire_and_ice')
-    else:
+    weapon_normalized = weapon.lower()
+    skins = weapon_options.get(weapon_normalized)
+    if not skins:
         return [], False
+    return _lookup_first_group(weapon_normalized, 'fire_and_ice', skins, False)
 
 
 def gem_black(weapon: str) -> tuple[list[int], bool]:
