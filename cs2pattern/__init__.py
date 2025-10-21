@@ -1,5 +1,5 @@
 __author__ = "Lukas Mahler"
-__version__ = "0.4.2"
+__version__ = "0.5.0"
 __date__ = "15.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
@@ -13,6 +13,7 @@ __all__ = [
     'abyss',
     'berries',
     'blaze',
+    'fade',
     'fire_and_ice',
     'gem_black',
     'gem_blue',

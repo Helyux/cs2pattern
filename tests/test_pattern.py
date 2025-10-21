@@ -12,6 +12,7 @@ from cs2pattern import (
     berries,
     blaze,
     check_rare,
+    fade,
     fire_and_ice,
     gem_black,
     gem_blue,
@@ -68,6 +69,19 @@ inputs = [
     [(True, ("fire_and_ice", -1)), ("★ Karambit | Marble Fade (Factory New)", 16)],
     [(False, None), ("★ Karambit | Marble Fade (Factory New)", 55)],
     [(False, None), ("★ Karambit | Marble Fade (Factory New)", 999)],
+
+    # Test fade
+    [(True, ("fade", 1)), ("★ Karambit | Fade (Factory New)", 412)],
+    [(True, ("fade", 10)), ("★ Karambit | Fade (Factory New)", 541)],
+    [(True, ("fade", 1)), ("★ M9 Bayonet | Fade (Factory New)", 763)],
+    [(True, ("fade", 10)), ("★ M9 Bayonet | Fade (Factory New)", 326)],
+    [(True, ("fade", 1)), ("★ Talon Knife | Fade (Factory New)", 412)],
+    [(True, ("fade", 10)), ("★ Talon Knife | Fade (Factory New)", 541)],
+    [(True, ("fade", 1)), ("AWP | Fade (Factory New)", 412)],
+    [(True, ("fade", 10)), ("AWP | Fade (Factory New)", 541)],
+    [(True, ("fade", 1)), ("M4A1-S | Fade (Factory New)", 374)],
+    [(True, ("fade", 10)), ("M4A1-S | Fade (Factory New)", 873)],
+    [(False, None), ("★ Karambit | Fade (Factory New)", 999)],
 
     # Test gem blue
     [(True, ("gem_blue", 1)), ("AK-47 | Case Hardened (Field-Tested)", 661)],
@@ -206,6 +220,22 @@ class TestModularHelpers(unittest.TestCase):
 
     def test_fire_and_ice_unsupported_weapon(self):
         self.assertEqual(fire_and_ice('m9 bayonet'), ([], False))
+
+    def test_fade_helper(self):
+        weapons = [
+            'awp',
+            'karambit',
+            'm9 bayonet',
+            'm4a1-s',
+            'talon knife',
+        ]
+
+        for weapon in weapons:
+            with self.subTest(weapon=weapon):
+                expected = self._expect_group('fade', weapon, 'fade')
+                self.assertEqual(fade(weapon), expected)
+
+        self.assertEqual(fade('butterfly knife'), ([], True))
 
     def test_gem_black_helper(self):
         weapons = [
