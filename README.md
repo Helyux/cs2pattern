@@ -7,7 +7,6 @@
 [![Issues][issues-shield]][issues-url]
 [![Downloads][downloads-shield]][downloads-url]
 [![GPLv3 License][license-shield]][license-url]
-[![Xing][xing-shield]][xing-url]
 </div>
 
 # cs2pattern
@@ -85,7 +84,5 @@ GPLv3 License. See the LICENSE file for details.
 [issues-url]: https://github.com/Helyux/cs2pattern/issues
 [downloads-shield]: https://img.shields.io/pepy/dt/cs2pattern?style=for-the-badge
 [downloads-url]: https://pepy.tech/project/cs2pattern
-[license-shield]: https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/License-GPLv3-red.svg?style=for-the-badge
 [license-url]: https://github.com/Helyux/cs2pattern/blob/master/LICENSE
-[xing-shield]: https://img.shields.io/static/v1?style=for-the-badge&message=Xing&color=006567&logo=Xing&logoColor=FFFFFF&label
-[xing-url]: https://www.xing.com/profile/Lukas_Mahler10
