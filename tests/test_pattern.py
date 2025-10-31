@@ -89,6 +89,7 @@ inputs = [
     [(True, ("gem_blue", 2)), ("Desert Eagle | Heat Treated (Field-Tested)", 148)],
     [(True, ("gem_blue", 4)), ("Five-SeveN | Case Hardened (Factory New)", 670)],
     [(True, ("gem_blue", 3)), ("★ Flip Knife | Case Hardened (Factory New)", 151)],
+    [(True, ("gem_blue", 5)), ("MAC-10 | Case Hardened (Factory New)", 18)],
     [(False, None), ("★ Karambit | Case Hardened (Factory New)", 123)],
 
     # Test gem diamond
@@ -264,6 +265,7 @@ class TestModularHelpers(unittest.TestCase):
             'five-seven': 'case hardened',
             'flip knife': 'case hardened',
             'karambit': 'case hardened',
+            'mac-10': 'case hardened',
         }
 
         for weapon, skin in cases.items():

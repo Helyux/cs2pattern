@@ -119,6 +119,15 @@
           896, 231, 939, 388
         ]
       }
+    ],
+    "mac-10": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          667, 114, 406, 239, 18
+        ]
+      }
     ]
   },
   "electric hive": {

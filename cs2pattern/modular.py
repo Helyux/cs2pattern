@@ -199,6 +199,7 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
         'five-seven': ('case hardened',),
         'flip knife': ('case hardened',),
         'karambit': ('case hardened',),
+        'mac-10': ('case hardened',),
     }
 
     weapon_normalized = weapon.lower()
