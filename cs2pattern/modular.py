@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "15.10.2025"
+__date__ = "31.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -198,6 +198,7 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
         'desert eagle': ('heat treated',),
         'five-seven': ('case hardened', 'heat treated'),
         'flip knife': ('case hardened',),
+        'hydra gloves': ('case hardened',),
         'karambit': ('case hardened',),
         'mac-10': ('case hardened',),
     }

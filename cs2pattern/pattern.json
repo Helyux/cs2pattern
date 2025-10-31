@@ -97,6 +97,15 @@
         ]
       }
     ],
+    "hydra gloves": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          310, 829, 221, 71, 941
+        ]
+      }
+    ],
     "karambit": [
       {
         "name": "gem_blue",
