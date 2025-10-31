@@ -262,7 +262,7 @@ class TestModularHelpers(unittest.TestCase):
             'ak-47': 'case hardened',
             'bayonet': 'case hardened',
             'desert eagle': 'heat treated',
-            'five-seven': 'case hardened',
+            'five-seven': 'heat treated',
             'flip knife': 'case hardened',
             'karambit': 'case hardened',
             'mac-10': 'case hardened',

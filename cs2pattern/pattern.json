@@ -233,6 +233,15 @@
           490, 148, 69, 704
         ]
       }
+    ],
+    "five-seven": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          904, 148, 704
+        ]
+      }
     ]
   },
   "kami": {

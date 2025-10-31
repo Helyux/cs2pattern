@@ -196,7 +196,7 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
         'ak-47': ('case hardened',),
         'bayonet': ('case hardened',),
         'desert eagle': ('heat treated',),
-        'five-seven': ('case hardened',),
+        'five-seven': ('case hardened', 'heat treated'),
         'flip knife': ('case hardened',),
         'karambit': ('case hardened',),
         'mac-10': ('case hardened',),
