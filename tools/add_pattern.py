@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "15.10.2025"
+__date__ = "31.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -12,6 +12,7 @@ import re
 import textwrap
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PATTERN_FILE = ROOT / "cs2pattern" / "pattern.json"
@@ -72,7 +73,32 @@ def _write_pattern_data(data: Dict) -> None:
     PATTERN_FILE.write_text(formatted + "\n", encoding="utf-8")
 
 
+def _normalize_pattern_group_name(skin: str, weapons: Iterable[str], current_name: str, canonical_name: str) -> None:
+    if current_name == canonical_name:
+        return
+
+    skin_key = skin.lower()
+    data = _load_pattern_data()
+    skin_entry = data.get(skin_key)
+    if not skin_entry:
+        return
+
+    changed = False
+    for weapon in weapons:
+        groups = skin_entry.get(weapon)
+        if not groups:
+            continue
+        for group in groups:
+            if group.get("name") == current_name:
+                group["name"] = canonical_name
+                changed = True
+
+    if changed:
+        _write_pattern_data(data)
+
+
 def _format_json(data, level: int = 0) -> str:
+
     if isinstance(data, dict):
         if not data:
             return "{}"
@@ -130,13 +156,184 @@ def _write_file(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
-def add_pattern(
-    skin: str,
-    group_name: str,
-    weapon_patterns: Dict[str, List[int]],
-    ordered: bool,
-    overwrite: bool,
-) -> None:
+def _find_helper_block(content: str, helper_name: str) -> Tuple[int, int, str]:
+
+    pattern = re.compile(rf"^def {re.escape(helper_name)}\b", re.MULTILINE)
+    match = pattern.search(content)
+    if not match:
+        return -1, -1, ""
+
+    start = match.start()
+    next_def_pattern = re.compile(r"^def [A-Za-z0-9_]+\(", re.MULTILINE)
+    next_def_match = next_def_pattern.search(content, match.end())
+    sentinel_index = content.find("\nif __name__ == '__main__':", match.end())
+
+    if next_def_match is None or (sentinel_index != -1 and sentinel_index < next_def_match.start()):
+        end = sentinel_index if sentinel_index != -1 else len(content)
+    else:
+        end = next_def_match.start()
+
+    return start, end, content[start:end]
+
+
+def _merge_helper_block(helper_block: str, helper_name: str, skin_key: str, group_name: str,
+                        weapon_patterns: Dict[str, List[int]], ordered: bool) -> Tuple[str, str, str]:
+
+    if "_lookup_first_group" in helper_block:
+        updated, canonical_group = _merge_multi_helper_block(
+            helper_block,
+            helper_name,
+            skin_key,
+            group_name,
+            weapon_patterns,
+            ordered,
+        )
+        return updated, "multi", canonical_group
+
+    if "_lookup_group" in helper_block:
+        updated, canonical_group = _merge_single_helper_block(
+            helper_block,
+            helper_name,
+            skin_key,
+            group_name,
+            weapon_patterns,
+            ordered,
+        )
+        return updated, "single", canonical_group
+
+    raise PatternToolError(
+        f"Helper '{helper_name}' exists but cannot be automatically extended. Please adjust it manually."
+    )
+
+
+def _merge_multi_helper_block(helper_block: str, helper_name: str, skin_key: str, group_name: str,
+                              weapon_patterns: Dict[str, List[int]], ordered: bool) -> Tuple[str, str]:
+
+    lookup_pattern = re.compile(
+        r"return _lookup_first_group\(\s*weapon_normalized,\s*'(?P<group>[^']+)',\s*skins,\s*(?P<ordered>True|False)\s*\)"
+    )
+    lookup_match = lookup_pattern.search(helper_block)
+    if not lookup_match:
+        raise PatternToolError(
+            f"Unable to locate lookup call for helper '{helper_name}'. Manual intervention required."
+        )
+
+    existing_group = lookup_match.group("group")
+    canonical_group = existing_group
+
+    existing_ordered = lookup_match.group("ordered") == "True"
+    if existing_ordered != ordered:
+        raise PatternToolError(
+            f"Helper '{helper_name}' uses ordered={existing_ordered}, requested ordered={ordered}."
+        )
+
+    lines = helper_block.splitlines()
+    assign_pattern = re.compile(r"(\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*\{\s*$")
+
+    dict_start = dict_end = None
+    indent = ""
+    var_name = ""
+
+    for index, line in enumerate(lines):
+        match = assign_pattern.match(line)
+        if match:
+            indent = match.group(1)
+            var_name = match.group(2)
+            dict_start = index
+            break
+
+    if dict_start is None:
+        raise PatternToolError(
+            f"Unable to locate mapping dictionary inside helper '{helper_name}'."
+        )
+
+    closing_prefix = f"{indent}}}"
+    for index in range(dict_start + 1, len(lines)):
+        if lines[index].startswith(closing_prefix):
+            dict_end = index
+            break
+
+    if dict_end is None:
+        raise PatternToolError(
+            f"Unable to locate mapping terminator for helper '{helper_name}'."
+        )
+
+    dict_text = "\n".join(lines[dict_start:dict_end + 1])
+    try:
+        dict_literal = dict_text.split("=", 1)[1].strip()
+        mapping = ast.literal_eval(dict_literal)
+    except (IndexError, SyntaxError, ValueError) as exc:
+        raise PatternToolError(
+            f"Failed to parse mapping for helper '{helper_name}'."
+        ) from exc
+
+    updated_mapping: Dict[str, Tuple[str, ...]] = {}
+    for weapon, skins in mapping.items():
+        if isinstance(skins, str):
+            skins_tuple = (skins,)
+        else:
+            skins_tuple = tuple(skins)
+        updated_mapping[weapon] = tuple(sorted(set(skins_tuple)))
+
+    changed = False
+    for weapon in weapon_patterns:
+        existing_skins = updated_mapping.get(weapon, ())
+        if skin_key in existing_skins:
+            continue
+        updated_skins = tuple(sorted(set(existing_skins + (skin_key,))))
+        updated_mapping[weapon] = updated_skins
+        changed = True
+
+    if not changed:
+        return helper_block, canonical_group
+
+    reconstructed: List[str] = [f"{indent}{var_name} = {{"]
+    for weapon in sorted(updated_mapping):
+        skins_repr = repr(updated_mapping[weapon])
+        reconstructed.append(f"{indent}    '{weapon}': {skins_repr},")
+    reconstructed.append(f"{indent}}}")
+
+    new_lines = lines[:dict_start] + reconstructed + lines[dict_end + 1:]
+    helper_block_has_trailing_newline = helper_block.endswith("\n")
+    new_block = "\n".join(new_lines)
+    if helper_block_has_trailing_newline:
+        new_block += "\n"
+    return new_block, canonical_group
+
+
+def _merge_single_helper_block(helper_block: str, helper_name: str, skin_key: str, group_name: str,
+                               weapon_patterns: Dict[str, List[int]], ordered: bool) -> Tuple[str, str]:
+
+    lookup_pattern = re.compile(
+        r"return _lookup_group\(\s*'(?P<skin>[^']+)',\s*'(?P<weapon>[^']+)',\s*'(?P<group>[^']+)'\s*\)"
+    )
+    match = lookup_pattern.search(helper_block)
+    if not match:
+        raise PatternToolError(
+            f"Unable to locate lookup call for helper '{helper_name}'. Manual intervention required."
+        )
+
+    existing_skin = match.group("skin")
+    existing_weapon = match.group("weapon")
+    existing_group = match.group("group")
+
+    canonical_group = existing_group
+
+    if skin_key != existing_skin:
+        raise PatternToolError(
+            f"Helper '{helper_name}' uses skin '{existing_skin}', expected '{skin_key}'."
+        )
+
+    if len(weapon_patterns) != 1 or existing_weapon not in weapon_patterns:
+        raise PatternToolError(
+            f"Helper '{helper_name}' handles weapon '{existing_weapon}'. Automatic merge for additional weapons is unsupported."
+        )
+
+    # Nothing to change for single-weapon helpers, return block unchanged.
+    return helper_block, canonical_group
+
+
+def add_pattern(skin: str, group_name: str, weapon_patterns: Dict[str, List[int]], ordered: bool, overwrite: bool) -> None:
     """
     Insert or update a pattern group inside pattern.json.
 
@@ -148,7 +345,7 @@ def add_pattern(
     :type weapon_patterns: dict[str, list[int]]
     :param ordered: Whether pattern ids are ordered.
     :type ordered: bool
-    :param overwrite: Replace existing group if it already exists.
+    :param overwrite: Replace an existing group if it already exists.
     :type overwrite: bool
     """
 
@@ -183,20 +380,31 @@ def add_pattern(
     _write_pattern_data(data)
 
 
-def _update_modular_helper(
-    helper_name: str,
-    skin: str,
-    group_name: str,
-    weapon_patterns: Dict[str, List[int]],
-    ordered: bool,
-) -> None:
+def _update_modular_helper(helper_name: str, skin: str, group_name: str,
+                           weapon_patterns: Dict[str, List[int]], ordered: bool) -> Tuple[str, bool, str]:
+
     modular_path = ROOT / "cs2pattern" / "modular.py"
     content = _read_file(modular_path)
 
-    if f"def {helper_name}" in content:
-        raise PatternToolError(f"Helper '{helper_name}' already exists in cs2pattern.modular.")
-
     skin_key = skin.lower()
+
+    helper_start, helper_end, helper_block = _find_helper_block(content, helper_name)
+    if helper_start != -1:
+        merged_block, helper_kind, canonical_group = _merge_helper_block(
+            helper_block,
+            helper_name=helper_name,
+            skin_key=skin_key,
+            group_name=group_name,
+            weapon_patterns=weapon_patterns,
+            ordered=ordered,
+        )
+
+        if merged_block == helper_block:
+            return helper_kind, False, canonical_group
+
+        updated_content = content[:helper_start] + merged_block + content[helper_end:]
+        _write_file(modular_path, updated_content)
+        return helper_kind, False, canonical_group
 
     public_defs = [
         (match.group(1), match.start())
@@ -214,6 +422,9 @@ def _update_modular_helper(
             break
 
     ordered_literal = "True" if ordered else "False"
+
+    helper_kind = "single" if len(weapon_patterns) == 1 else "multi"
+    canonical_group = group_name
 
     if len(weapon_patterns) == 1:
         weapon = next(iter(weapon_patterns.keys()))
@@ -250,6 +461,7 @@ def {helper_name}(weapon: str) -> tuple[list[int], bool]:
 
     updated = content[:insertion_index] + helper_code + content[insertion_index:]
     _write_file(modular_path, updated)
+    return helper_kind, True, canonical_group
 
 
 def _update_init(helper_name: str) -> None:
@@ -314,6 +526,7 @@ def _update_test_import(helper_name: str) -> None:
 
 
 def _append_single_helper_test_case(helper_name: str, skin: str, weapon: str, group_name: str) -> None:
+
     test_path = ROOT / "tests" / "test_pattern.py"
     content = _read_file(test_path)
 
@@ -350,17 +563,20 @@ def _append_single_helper_test_case(helper_name: str, skin: str, weapon: str, gr
     _write_file(test_path, updated)
 
 
-def _append_multi_helper_test(
-    helper_name: str,
-    skin: str,
-    weapons: Iterable[str],
-    group_name: str,
-    ordered: bool,
-) -> None:
+def _append_multi_helper_test(helper_name: str, skin: str, weapons: Iterable[str], group_name: str, ordered: bool):
+
     test_path = ROOT / "tests" / "test_pattern.py"
     content = _read_file(test_path)
 
     if f"def test_{helper_name}_helper" in content:
+        updated = _update_existing_multi_helper_test_cases(
+            content,
+            helper_name=helper_name,
+            skin=skin,
+            weapons=weapons,
+        )
+        if updated != content:
+            _write_file(test_path, updated)
         return
 
     weapon_list = ", ".join(f"'{weapon}'" for weapon in weapons)
@@ -386,6 +602,83 @@ def test_{helper_name}_helper(self):
 
     updated = content.replace(marker, "\n" + method + marker, 1)
     _write_file(test_path, updated)
+
+
+def _update_existing_multi_helper_test_cases(content: str, helper_name: str, skin: str, weapons: Iterable[str]) -> str:
+
+    method_pattern = re.compile(rf"^    def test_{re.escape(helper_name)}_helper\(self\):", re.MULTILINE)
+    method_match = method_pattern.search(content)
+    if not method_match:
+        return content
+
+    start = method_match.start()
+    next_method_pattern = re.compile(r"^    def ", re.MULTILINE)
+    next_method_match = next_method_pattern.search(content, method_match.end())
+    sentinel_index = content.find("\nif __name__ == '__main__':", method_match.end())
+
+    if next_method_match is None or (sentinel_index != -1 and sentinel_index < next_method_match.start()):
+        end = sentinel_index if sentinel_index != -1 else len(content)
+    else:
+        end = next_method_match.start()
+
+    method_block = content[start:end]
+    lines = method_block.splitlines()
+
+    assign_pattern = re.compile(r"(\s*)cases\s*=\s*\{\s*$")
+    dict_start = dict_end = None
+    indent = ""
+
+    for index, line in enumerate(lines):
+        match = assign_pattern.match(line)
+        if match:
+            indent = match.group(1)
+            dict_start = index
+            break
+
+    if dict_start is None:
+        return content
+
+    closing_prefix = f"{indent}}}"
+    for index in range(dict_start + 1, len(lines)):
+        if lines[index].startswith(closing_prefix):
+            dict_end = index
+            break
+
+    if dict_end is None:
+        return content
+
+    dict_text = "\n".join(lines[dict_start:dict_end + 1])
+    try:
+        dict_literal = dict_text.split("=", 1)[1].strip()
+        cases = ast.literal_eval(dict_literal)
+    except (IndexError, SyntaxError, ValueError):
+        return content
+
+    skin_value = skin.lower()
+    updated_cases: Dict[str, str] = {weapon: cases[weapon] for weapon in cases}
+    changed = False
+
+    for weapon in weapons:
+        if updated_cases.get(weapon) == skin_value:
+            continue
+        updated_cases[weapon] = skin_value
+        changed = True
+
+    if not changed:
+        return content
+
+    reconstructed: List[str] = [f"{indent}cases = {{"]
+    for weapon in sorted(updated_cases):
+        reconstructed.append(f"{indent}    '{weapon}': '{updated_cases[weapon]}',")
+    reconstructed.append(f"{indent}}}")
+
+    new_lines = lines[:dict_start] + reconstructed + lines[dict_end + 1:]
+    block_has_trailing_newline = method_block.endswith("\n")
+    new_block = "\n".join(new_lines)
+    if block_has_trailing_newline:
+        new_block += "\n"
+
+    return content[:start] + new_block + content[end:]
 
 
 def main() -> int:
@@ -428,16 +721,9 @@ def main() -> int:
 
     try:
         weapon_patterns = dict(_parse_weapon_entry(entry) for entry in args.weapon)
-        add_pattern(
-            skin=args.skin,
-            group_name=args.name,
-            weapon_patterns=weapon_patterns,
-            ordered=args.ordered,
-            overwrite=args.overwrite,
-        )
         helper_msg = ""
         if args.helper:
-            _update_modular_helper(
+            helper_kind, helper_created, canonical_group = _update_modular_helper(
                 helper_name=args.helper,
                 skin=args.skin,
                 group_name=args.name,
@@ -446,25 +732,44 @@ def main() -> int:
             )
             _update_init(args.helper)
             _update_test_import(args.helper)
-            if len(weapon_patterns) == 1:
-                weapon = next(iter(weapon_patterns.keys()))
-                _append_single_helper_test_case(args.helper, args.skin, weapon, args.name)
-            else:
+            if helper_kind == "multi":
                 _append_multi_helper_test(
                     args.helper,
                     args.skin,
                     weapon_patterns.keys(),
-                    args.name,
+                    canonical_group,
                     args.ordered,
                 )
-            helper_msg = f" Helper '{args.helper}' created."
+            else:
+                weapon = next(iter(weapon_patterns.keys()))
+                _append_single_helper_test_case(args.helper, args.skin, weapon, canonical_group)
+        else:
+            canonical_group = args.name
+
+        add_pattern(
+            skin=args.skin,
+            group_name=canonical_group,
+            weapon_patterns=weapon_patterns,
+            ordered=args.ordered,
+            overwrite=args.overwrite,
+        )
+
+        if args.helper:
+            _normalize_pattern_group_name(
+                args.skin,
+                weapon_patterns.keys(),
+                args.name,
+                canonical_group,
+            )
+            action = "created" if helper_created else "updated"
+            helper_msg = f" Helper '{args.helper}' {action}."
     except PatternToolError as exc:
         parser.error(str(exc))
     except json.JSONDecodeError as exc:
         parser.error(f"Failed to parse pattern.json: {exc}")
 
     print(
-        f"Pattern group '{args.name}' added for skin '{args.skin.lower()}'.{helper_msg}"
+        f"Pattern group '{canonical_group}' added for skin '{args.skin.lower()}'.{helper_msg}"
     )
     return 0
 
