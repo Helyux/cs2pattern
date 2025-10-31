@@ -72,6 +72,42 @@
         ]
       }
     ],
+    "bowie knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          182, 913, 29, 652, 494
+        ]
+      }
+    ],
+    "butterfly knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          182, 652, 398, 838, 29
+        ]
+      }
+    ],
+    "classic knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          403, 58, 681, 169, 456
+        ]
+      }
+    ],
+    "falchion knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          494, 838, 638, 891, 371
+        ]
+      }
+    ],
     "five-seven": [
       {
         "name": "gem_blue",
@@ -94,6 +130,24 @@
         "ordered": true,
         "pattern": [
           670, 321, 151, 592, 661, 555
+        ]
+      }
+    ],
+    "gut knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          567, 962, 125
+        ]
+      }
+    ],
+    "huntsman knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          618, 652, 721
         ]
       }
     ],
@@ -129,12 +183,102 @@
         ]
       }
     ],
+    "m9 bayonet": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          601, 417
+        ]
+      }
+    ],
     "mac-10": [
       {
         "name": "gem_blue",
         "ordered": true,
         "pattern": [
           667, 114, 406, 239, 18
+        ]
+      }
+    ],
+    "navaja knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          398, 407, 838, 371, 182
+        ]
+      }
+    ],
+    "nomad knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          456, 577, 169, 681, 55
+        ]
+      }
+    ],
+    "paracord knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          403, 316, 456, 58, 681
+        ]
+      }
+    ],
+    "shadow daggers": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          56, 468, 505, 866, 417
+        ]
+      }
+    ],
+    "skeleton knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          403, 456, 169, 681, 316
+        ]
+      }
+    ],
+    "stiletto knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          182, 713, 494
+        ]
+      }
+    ],
+    "survival knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          403, 456, 169, 681, 316
+        ]
+      }
+    ],
+    "talon knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          55, 923, 241, 602, 899
+        ]
+      }
+    ],
+    "ursus knife": [
+      {
+        "name": "gem_blue",
+        "ordered": true,
+        "pattern": [
+          494, 770, 618, 575, 652
         ]
       }
     ]

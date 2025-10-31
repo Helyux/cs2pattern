@@ -195,12 +195,28 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
     skin_options = {
         'ak-47': ('case hardened',),
         'bayonet': ('case hardened',),
+        'bowie knife': ('case hardened',),
+        'butterfly knife': ('case hardened',),
+        'classic knife': ('case hardened',),
         'desert eagle': ('heat treated',),
+        'falchion knife': ('case hardened',),
         'five-seven': ('case hardened', 'heat treated'),
         'flip knife': ('case hardened',),
+        'gut knife': ('case hardened',),
+        'huntsman knife': ('case hardened',),
         'hydra gloves': ('case hardened',),
         'karambit': ('case hardened',),
+        'm9 bayonet': ('case hardened',),
         'mac-10': ('case hardened',),
+        'navaja knife': ('case hardened',),
+        'nomad knife': ('case hardened',),
+        'paracord knife': ('case hardened',),
+        'shadow daggers': ('case hardened',),
+        'skeleton knife': ('case hardened',),
+        'stiletto knife': ('case hardened',),
+        'survival knife': ('case hardened',),
+        'talon knife': ('case hardened',),
+        'ursus knife': ('case hardened',),
     }
 
     weapon_normalized = weapon.lower()
