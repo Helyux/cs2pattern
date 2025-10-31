@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "15.10.2025"
+__date__ = "31.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
@@ -89,6 +89,7 @@ inputs = [
     [(True, ("gem_blue", 2)), ("Desert Eagle | Heat Treated (Field-Tested)", 148)],
     [(True, ("gem_blue", 4)), ("Five-SeveN | Case Hardened (Factory New)", 670)],
     [(True, ("gem_blue", 3)), ("★ Flip Knife | Case Hardened (Factory New)", 151)],
+    [(True, ("gem_blue", 5)), ("MAC-10 | Case Hardened (Factory New)", 18)],
     [(False, None), ("★ Karambit | Case Hardened (Factory New)", 123)],
 
     # Test gem diamond
@@ -260,10 +261,28 @@ class TestModularHelpers(unittest.TestCase):
         cases = {
             'ak-47': 'case hardened',
             'bayonet': 'case hardened',
+            'bowie knife': 'case hardened',
+            'butterfly knife': 'case hardened',
+            'classic knife': 'case hardened',
             'desert eagle': 'heat treated',
-            'five-seven': 'case hardened',
+            'falchion knife': 'case hardened',
+            'five-seven': 'heat treated',
             'flip knife': 'case hardened',
+            'gut knife': 'case hardened',
+            'huntsman knife': 'case hardened',
+            'hydra gloves': 'case hardened',
             'karambit': 'case hardened',
+            'm9 bayonet': 'case hardened',
+            'mac-10': 'case hardened',
+            'navaja knife': 'case hardened',
+            'nomad knife': 'case hardened',
+            'paracord knife': 'case hardened',
+            'shadow daggers': 'case hardened',
+            'skeleton knife': 'case hardened',
+            'stiletto knife': 'case hardened',
+            'survival knife': 'case hardened',
+            'talon knife': 'case hardened',
+            'ursus knife': 'case hardened',
         }
 
         for weapon, skin in cases.items():

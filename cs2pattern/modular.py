@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "15.10.2025"
+__date__ = "31.10.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -195,10 +195,28 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
     skin_options = {
         'ak-47': ('case hardened',),
         'bayonet': ('case hardened',),
+        'bowie knife': ('case hardened',),
+        'butterfly knife': ('case hardened',),
+        'classic knife': ('case hardened',),
         'desert eagle': ('heat treated',),
-        'five-seven': ('case hardened',),
+        'falchion knife': ('case hardened',),
+        'five-seven': ('case hardened', 'heat treated'),
         'flip knife': ('case hardened',),
+        'gut knife': ('case hardened',),
+        'huntsman knife': ('case hardened',),
+        'hydra gloves': ('case hardened',),
         'karambit': ('case hardened',),
+        'm9 bayonet': ('case hardened',),
+        'mac-10': ('case hardened',),
+        'navaja knife': ('case hardened',),
+        'nomad knife': ('case hardened',),
+        'paracord knife': ('case hardened',),
+        'shadow daggers': ('case hardened',),
+        'skeleton knife': ('case hardened',),
+        'stiletto knife': ('case hardened',),
+        'survival knife': ('case hardened',),
+        'talon knife': ('case hardened',),
+        'ursus knife': ('case hardened',),
     }
 
     weapon_normalized = weapon.lower()
