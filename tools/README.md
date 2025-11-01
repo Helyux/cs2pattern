@@ -32,7 +32,7 @@ python tools/add_pattern.py --skin "Marble Fade" --name fire_and_ice_v2 --weapon
 Update an existing group by overwriting its data:
 
 ```bash
-python tools/add_pattern.py --skin "Moonrise" --name star --weapon "glock-18:58 59 66 90" --ordered --overwrite
+python tools/add_pattern.py --skin "Case Hardened" --name gem_blue --weapon "stiletto knife:182 398 928" --ordered --overwrite
 ```
 
 ***After running the tool, confirm the repository still passes its checks (e.g. `python3 -m pytest`) and review the diff before committing.***
