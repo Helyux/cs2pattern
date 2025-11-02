@@ -29,8 +29,8 @@ class PatternInfo:
     weapon: Optional[str] = None
     skin: Optional[str] = None
     pattern: Optional[int] = None
-    is_rare: bool = False
-    group: Optional[str] = None
+    rare: bool = False
+    name: Optional[str] = None
     ordered: bool = False
     order: Optional[tuple[int, int]] = None
     icon: Optional[str] = None
@@ -134,8 +134,8 @@ def check_rare(market_hash: str, pattern: int) -> PatternInfo:
         weapon=weapon,
         skin=skin,
         pattern=normalized_pattern,
-        is_rare=True,
-        group=group_name,
+        rare=True,
+        name=group_name,
         ordered=ordered,
         order=order_info,
         icon=ICON_MAP.get(group_name),

@@ -32,12 +32,12 @@ from cs2pattern import check_rare
 
 # Provide full item name and pattern number
 result = check_rare("★ Karambit | Case Hardened (Factory New)", 269)
-if result.is_rare:
+if result.rare:
     if result.ordered and result.order:
         rank, total = result.order
-        print(f"Rare pattern: {result.group} (rank {rank}/{total})")
+        print(f"Rare pattern: {result.name} (rank {rank}/{total})")
     else:
-        print(f"Rare pattern: {result.group}")
+        print(f"Rare pattern: {result.name}")
 
 #=> Rare pattern: gem_blue (rank 5/14)
 ```
