@@ -1,13 +1,14 @@
 __author__ = "Lukas Mahler"
-__version__ = "0.5.0"
-__date__ = "15.10.2025"
+__version__ = "0.6.0"
+__date__ = "02.11.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
-from cs2pattern.check import check_rare, get_pattern_dict
+from cs2pattern.check import PatternInfo, check_rare, get_pattern_dict
 from cs2pattern.modular import *
 
 __all__ = [
+    'PatternInfo',
     'check_rare',
     'get_pattern_dict',
     'abyss',
