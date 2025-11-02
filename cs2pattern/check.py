@@ -20,17 +20,20 @@ ICON_MAP   = json.loads((DIR / "icons.json").read_text(encoding="utf-8"))
 @dataclass(frozen=True)
 class PatternInfo:
     """
-    Normalized input results and rarity status, metadata, and a representative icon.
+    Normalized lookup result for a pattern query.
+
+    Exposes the normalized identifiers (`weapon`, `skin`, `pattern`),
+    rarity status, ordering metadata (when applicable), and a representative icon for the matched group.
     """
 
-    weapon: Optional[str]
-    skin: Optional[str]
-    pattern: Optional[int]
-    is_rare: bool
-    group: Optional[str]
-    ordered: bool
-    order: Optional[tuple[int, int]]
-    icon: Optional[str]
+    weapon: Optional[str] = None
+    skin: Optional[str] = None
+    pattern: Optional[int] = None
+    is_rare: bool = False
+    group: Optional[str] = None
+    ordered: bool = False
+    order: Optional[tuple[int, int]] = None
+    icon: Optional[str] = None
 
 
 def _normalize_input(market_hash: str, pattern: int) -> Optional[tuple[str, str, int]]:
@@ -107,41 +110,26 @@ def check_rare(market_hash: str, pattern: int) -> PatternInfo:
     :param pattern: The pattern to check for rarity.
     :type pattern: int
 
-    :return: Structured Pattern info, describing rarity, matching group, ordering, and other details.
+    :return: Structured `PatternInfo` with normalized data, rarity details, ordering metadata, and icon.
     :rtype: PatternInfo
     """
 
     normalized = _normalize_input(market_hash, pattern)
     if not normalized:
-        return PatternInfo(
-            weapon=None,
-            skin=None,
-            pattern=None,
-            is_rare=False,
-            group=None,
-            ordered=False,
-            order=None,
-            icon=None,
-        )
+        return PatternInfo()
 
+    weapon, skin, normalized_pattern = normalized
     special = _match_group(normalized)
 
     if not special:
-        weapon, skin, normalized_pattern = normalized
         return PatternInfo(
             weapon=weapon,
             skin=skin,
             pattern=normalized_pattern,
-            is_rare=False,
-            group=None,
-            ordered=False,
-            order=None,
-            icon=None,
         )
 
     group_name, ordered, rank, total = special
     order_info = (rank, total) if ordered and rank is not None and total is not None else None
-    weapon, skin, normalized_pattern = normalized
     return PatternInfo(
         weapon=weapon,
         skin=skin,
@@ -156,9 +144,9 @@ def check_rare(market_hash: str, pattern: int) -> PatternInfo:
 
 def get_pattern_dict() -> dict:
     """
-    Retrieve the dictionary containing special patterns.
+    Retrieve the full pattern map containing all configured rarity groups.
 
-    :return: The special pattern dictionary.
+    :return: Mapping of skin -> weapon -> list of group definitions.
     :rtype: dict
     """
 
