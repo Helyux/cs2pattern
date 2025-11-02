@@ -248,7 +248,7 @@ class TestModularHelpers(unittest.TestCase):
                 self.assertEqual(fire_and_ice(weapon), expected)
 
     def test_fire_and_ice_unsupported_weapon(self):
-        self.assertEqual(fire_and_ice('m9 bayonet'), ([], False))
+        self.assertIsNone(fire_and_ice('m9 bayonet'))
 
     def test_fade_helper(self):
         weapons = [
@@ -264,7 +264,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group('fade', weapon, 'fade')
                 self.assertEqual(fade(weapon), expected)
 
-        self.assertEqual(fade('butterfly knife'), ([], True))
+        self.assertIsNone(fade('butterfly knife'))
 
     def test_gem_black_helper(self):
         weapons = [
@@ -283,7 +283,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group('scorched', weapon, 'gem_black')
                 self.assertEqual(gem_black(weapon), expected)
 
-        self.assertEqual(gem_black('unsupported'), ([], True))
+        self.assertIsNone(gem_black('unsupported'))
 
     def test_gem_blue_helper(self):
         cases = {
@@ -318,7 +318,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group(skin, weapon, 'gem_blue')
                 self.assertEqual(gem_blue(weapon), expected)
 
-        self.assertEqual(gem_blue('unsupported'), ([], True))
+        self.assertIsNone(gem_blue('unsupported'))
 
     def test_gem_gold_helper(self):
         cases = {
@@ -333,7 +333,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group(skin, weapon, 'gem_gold')
                 self.assertEqual(gem_gold(weapon), expected)
 
-        self.assertEqual(gem_gold('m4a1-s'), ([], False))
+        self.assertIsNone(gem_gold('m4a1-s'))
 
     def test_gem_purple_helper(self):
         cases = {
@@ -347,7 +347,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group(skin, weapon, 'gem_purple')
                 self.assertEqual(gem_purple(weapon), expected)
 
-        self.assertEqual(gem_purple('ak-47'), ([], True))
+        self.assertIsNone(gem_purple('ak-47'))
 
     def test_gem_white_helper(self):
         cases = {
@@ -363,7 +363,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group(skin, weapon, 'gem_white')
                 self.assertEqual(gem_white(weapon), expected)
 
-        self.assertEqual(gem_white('karambit'), ([], False))
+        self.assertIsNone(gem_white('karambit'))
 
 
 if __name__ == '__main__':
