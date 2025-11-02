@@ -1,5 +1,5 @@
 __author__ = "Lukas Mahler"
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 __date__ = "02.11.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
