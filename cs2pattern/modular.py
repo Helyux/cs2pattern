@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "31.10.2025"
+__date__ = "02.11.2025"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -9,7 +9,8 @@ from typing import Optional, Sequence
 
 from cs2pattern.check import get_pattern_dict
 
-SPECIAL_PATTERN = get_pattern_dict()
+
+PATTERN_MAP = get_pattern_dict()
 
 
 def _lookup_group(skin: str, weapon: str, group_name: str) -> tuple[list[int], bool]:
@@ -27,21 +28,16 @@ def _lookup_group(skin: str, weapon: str, group_name: str) -> tuple[list[int], b
     :rtype: tuple[list[int], bool]
     """
 
-    groups = SPECIAL_PATTERN.get(skin, {}).get(weapon, [])
+    groups = PATTERN_MAP.get(skin, {}).get(weapon, [])
     for group in groups:
         if group.get('name') == group_name:
             return list(group.get('pattern', [])), bool(group.get('ordered', False))
     return [], False
 
 
-def _lookup_first_group(
-    weapon: str,
-    group_name: str,
-    skins: Sequence[str],
-    default_ordered: bool,
-) -> tuple[list[int], bool]:
+def _lookup_first_group(weapon: str, group_name: str, skins: Sequence[str]) -> Optional[tuple[list[int], bool]]:
     """
-    Try to resolve a group across multiple skins for a given weapon.
+    Try to resolve a group across multiple skins for a given weapon and return its ordering info.
 
     :param weapon: Weapon identifier.
     :type weapon: str
@@ -49,11 +45,9 @@ def _lookup_first_group(
     :type group_name: str
     :param skins: Skins to inspect in order until the group is found.
     :type skins: Sequence[str]
-    :param default_ordered: Ordered flag to fall back to if no data is found.
-    :type default_ordered: bool
 
-    :return: The first matching pattern list and ordered flag, or defaults.
-    :rtype: tuple[list[int], bool]
+    :return: The first matching pattern list and ordered flag, or ``None`` if no match is found.
+    :rtype: Optional[tuple[list[int], bool]]
     """
 
     weapon = weapon.lower()
@@ -61,7 +55,7 @@ def _lookup_first_group(
         patterns, ordered = _lookup_group(skin, weapon, group_name)
         if patterns:
             return patterns, ordered
-    return [], default_ordered
+    return None
 
 
 def abyss() -> tuple[list[int], bool]:
@@ -100,7 +94,7 @@ def blaze() -> tuple[list[int], bool]:
     return _lookup_group('case hardened', 'karambit', 'blaze')
 
 
-def fade(weapon: str) -> tuple[list[int], bool]:
+def fade(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
     Return a pattern list for fade-highlighted skins.
 
@@ -108,7 +102,7 @@ def fade(weapon: str) -> tuple[list[int], bool]:
     :type weapon: str
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
-    :rtype: tuple[list[int], bool]
+    :rtype: Optional[tuple[list[int], bool]]
     """
 
     weapon_options = {
@@ -122,8 +116,8 @@ def fade(weapon: str) -> tuple[list[int], bool]:
     weapon_normalized = weapon.lower()
     skins = weapon_options.get(weapon_normalized)
     if not skins:
-        return [], True
-    return _lookup_first_group(weapon_normalized, 'fade', skins, True)
+        return None
+    return _lookup_first_group(weapon_normalized, 'fade', skins)
 
 
 def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -148,11 +142,11 @@ def fire_and_ice(weapon: str) -> Optional[tuple[list[int], bool]]:
     weapon_normalized = weapon.lower()
     skins = weapon_options.get(weapon_normalized)
     if not skins:
-        return [], False
-    return _lookup_first_group(weapon_normalized, 'fire_and_ice', skins, False)
+        return None
+    return _lookup_first_group(weapon_normalized, 'fire_and_ice', skins)
 
 
-def gem_black(weapon: str) -> tuple[list[int], bool]:
+def gem_black(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
     Return a pattern list for gem black 'Scorched' knives.
 
@@ -160,7 +154,7 @@ def gem_black(weapon: str) -> tuple[list[int], bool]:
     :type weapon: str
 
     :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
-    :rtype: tuple[list[int], bool]
+    :rtype: Optional[tuple[list[int], bool]]
     """
 
     weapon_options = {
@@ -177,8 +171,8 @@ def gem_black(weapon: str) -> tuple[list[int], bool]:
     weapon_normalized = weapon.lower()
     skins = weapon_options.get(weapon_normalized)
     if not skins:
-        return [], True
-    return _lookup_first_group(weapon_normalized, 'gem_black', skins, True)
+        return None
+    return _lookup_first_group(weapon_normalized, 'gem_black', skins)
 
 
 def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -222,8 +216,8 @@ def gem_blue(weapon: str) -> Optional[tuple[list[int], bool]]:
     weapon_normalized = weapon.lower()
     skins = skin_options.get(weapon_normalized)
     if not skins:
-        return [], True
-    return _lookup_first_group(weapon_normalized, 'gem_blue', skins, True)
+        return None
+    return _lookup_first_group(weapon_normalized, 'gem_blue', skins)
 
 
 def gem_diamond() -> tuple[list[int], bool]:
@@ -259,8 +253,8 @@ def gem_gold(weapon: str) -> Optional[tuple[list[int], bool]]:
     weapon_normalized = weapon.lower()
     skins = skin_options.get(weapon_normalized)
     if not skins:
-        return [], False
-    return _lookup_first_group(weapon_normalized, 'gem_gold', skins, False)
+        return None
+    return _lookup_first_group(weapon_normalized, 'gem_gold', skins)
 
 
 def gem_green() -> tuple[list[int], bool]:
@@ -305,8 +299,8 @@ def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
     weapon_normalized = weapon.lower()
     skins = skin_options.get(weapon_normalized)
     if not skins:
-        return [], True
-    return _lookup_first_group(weapon_normalized, 'gem_purple', skins, True)
+        return None
+    return _lookup_first_group(weapon_normalized, 'gem_purple', skins)
 
 
 def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
@@ -331,8 +325,8 @@ def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
     weapon_normalized = weapon.lower()
     skins = skin_options.get(weapon_normalized)
     if not skins:
-        return [], False
-    return _lookup_first_group(weapon_normalized, 'gem_white', skins, False)
+        return None
+    return _lookup_first_group(weapon_normalized, 'gem_white', skins)
 
 
 def grinder() -> tuple[list[int], bool]:

@@ -31,12 +31,15 @@ To check if your skin has a rare pattern:
 from cs2pattern import check_rare
 
 # Provide full item name and pattern number
-is_rare, details = check_rare("★ Karambit | Case Hardened (Factory New)", 269)
-if is_rare:
-    rare_name, rank = details
-    print(f"Rare pattern: {rare_name} (rank {rank})")
+result = check_rare("★ Karambit | Case Hardened (Factory New)", 269)
+if result.is_rare:
+    if result.ordered and result.order:
+        rank, total = result.order
+        print(f"Rare pattern: {result.group} (rank {rank}/{total})")
+    else:
+        print(f"Rare pattern: {result.group}")
 
-#=> Rare pattern: gem_blue (rank 5)
+#=> Rare pattern: gem_blue (rank 5/14)
 ```
 
 ### Modular helpers

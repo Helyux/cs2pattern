@@ -14,6 +14,7 @@
 | `--ordered` | No | Marks the pattern list as ordered (defaults to `False`). |
 | `--overwrite` | No | Replace an existing group instead of failing when the group already exists. |
 | `--helper` | No | Optional helper name. When provided, the script generates a convenience wrapper in `cs2pattern.modular`, exposes it via `cs2pattern.__all__`, and adds matching unit tests. |
+| `--icon` | No | Optional icon or emoji to associate with the pattern group in `icons.json`. Requires `--overwrite` if an icon already exists. |
 
 ### Examples
 
@@ -23,16 +24,22 @@ Add a new unordered pattern group for a single weapon:
 python tools/add_pattern.py --skin "Case Hardened" --name blaze_v2 --weapon "ak-47:123 456 789"
 ```
 
+Add a new group with an icon:
+
+```bash
+python tools/add_pattern.py --skin "Case Hardened" --name blaze_iconic --weapon "ak-47:111 222" --icon "🔥"
+```
+
 Add an ordered multi-weapon group and auto-generate the helper/tests:
 
 ```bash
 python tools/add_pattern.py --skin "Marble Fade" --name fire_and_ice_v2 --weapon "bayonet:12 34 56" --weapon "karambit:78 90" --ordered --helper fire_and_ice_v2
 ```
 
-Update an existing group by overwriting its data:
+Update an existing group by overwriting its data (and icon):
 
 ```bash
-python tools/add_pattern.py --skin "Case Hardened" --name gem_blue --weapon "stiletto knife:182 398 928" --ordered --overwrite
+python tools/add_pattern.py --skin "Case Hardened" --name gem_blue --weapon "stiletto knife:182 398 928" --ordered --overwrite --icon "🟦"
 ```
 
 ***After running the tool, confirm the repository still passes its checks (e.g. `python3 -m pytest`) and review the diff before committing.***
