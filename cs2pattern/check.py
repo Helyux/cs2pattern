@@ -6,21 +6,21 @@ __status__ = "Development"
 
 
 import json
-import os
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(current_dir, "pattern.json")
-with open(json_path, "r") as file:
-    SPECIAL_PATTERN = json.load(file)
+
+DIR = Path(__file__).resolve().parent
+PATTERN_MAP = json.loads((DIR / "pattern.json").read_text(encoding="utf-8"))
+ICON_MAP   = json.loads((DIR / "icons.json").read_text(encoding="utf-8"))
 
 
 @dataclass(frozen=True)
 class PatternInfo:
     """
-    Normalized lookup result including rarity status and ordering metadata.
+    Normalized input results and rarity status, metadata, and a representative icon.
     """
 
     weapon: Optional[str]
@@ -30,6 +30,7 @@ class PatternInfo:
     group: Optional[str]
     ordered: bool
     order: Optional[tuple[int, int]]
+    icon: Optional[str]
 
 
 def _normalize_input(market_hash: str, pattern: int) -> Optional[tuple[str, str, int]]:
@@ -77,10 +78,10 @@ def _match_group(normalized_data: tuple[str, str, int]) -> Optional[tuple[str, b
     weapon, skin, pattern = normalized_data
 
     # Check if skin and weapon exist in the pattern data
-    if skin not in SPECIAL_PATTERN or weapon not in SPECIAL_PATTERN[skin]:
+    if skin not in PATTERN_MAP or weapon not in PATTERN_MAP[skin]:
         return None
 
-    groups = SPECIAL_PATTERN[skin][weapon]
+    groups = PATTERN_MAP[skin][weapon]
 
     for group in groups:
         patterns = list(group.get('pattern', []))
@@ -120,6 +121,7 @@ def check_rare(market_hash: str, pattern: int) -> PatternInfo:
             group=None,
             ordered=False,
             order=None,
+            icon=None,
         )
 
     special = _match_group(normalized)
@@ -134,6 +136,7 @@ def check_rare(market_hash: str, pattern: int) -> PatternInfo:
             group=None,
             ordered=False,
             order=None,
+            icon=None,
         )
 
     group_name, ordered, rank, total = special
@@ -147,6 +150,7 @@ def check_rare(market_hash: str, pattern: int) -> PatternInfo:
         group=group_name,
         ordered=ordered,
         order=order_info,
+        icon=ICON_MAP.get(group_name),
     )
 
 
@@ -158,7 +162,7 @@ def get_pattern_dict() -> dict:
     :rtype: dict
     """
 
-    return SPECIAL_PATTERN
+    return PATTERN_MAP
 
 
 if __name__ == '__main__':

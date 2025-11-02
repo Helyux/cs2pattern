@@ -33,7 +33,7 @@ from cs2pattern import (
     pussy,
     PatternInfo,
 )
-from cs2pattern.check import _normalize_input
+from cs2pattern.check import ICON_MAP, _normalize_input
 
 inputs = [
 
@@ -178,8 +178,19 @@ class TestPattern(unittest.TestCase):
                     group=expected[1],
                     ordered=ordered,
                     order=expected[2],
+                    icon=ICON_MAP.get(expected[1]) if expected[1] else None,
                 )
                 self.assertEqual(check_rare(*args), structured_expected)
+
+    def test_group_icons_defined(self):
+        groups = set()
+        for weapon_groups in get_pattern_dict().values():
+            for group_list in weapon_groups.values():
+                for group in group_list:
+                    groups.add(group.get('name'))
+
+        missing = {name for name in groups if name and name not in ICON_MAP}
+        self.assertFalse(missing, f"Missing icons for groups: {sorted(missing)}")
 
 
 class TestModularHelpers(unittest.TestCase):

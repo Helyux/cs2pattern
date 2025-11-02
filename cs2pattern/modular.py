@@ -9,7 +9,8 @@ from typing import Optional, Sequence
 
 from cs2pattern.check import get_pattern_dict
 
-SPECIAL_PATTERN = get_pattern_dict()
+
+PATTERN_MAP = get_pattern_dict()
 
 
 def _lookup_group(skin: str, weapon: str, group_name: str) -> tuple[list[int], bool]:
@@ -27,7 +28,7 @@ def _lookup_group(skin: str, weapon: str, group_name: str) -> tuple[list[int], b
     :rtype: tuple[list[int], bool]
     """
 
-    groups = SPECIAL_PATTERN.get(skin, {}).get(weapon, [])
+    groups = PATTERN_MAP.get(skin, {}).get(weapon, [])
     for group in groups:
         if group.get('name') == group_name:
             return list(group.get('pattern', [])), bool(group.get('ordered', False))
