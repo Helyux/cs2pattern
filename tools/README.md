@@ -27,7 +27,7 @@ python tools/add_pattern.py --skin "Case Hardened" --name blaze_v2 --weapon "ak-
 Add a new group with an icon:
 
 ```bash
-python tools/add_pattern.py --skin "Case Hardened" --name blaze_iconic --weapon "ak-47:111 222" --icon "🔥"
+python tools/add_pattern.py --skin "Serpent Strike" --name gem_orange --weapon "desert eagle:425,698,363" --icon "🟧"
 ```
 
 Add an ordered multi-weapon group and auto-generate the helper/tests:
