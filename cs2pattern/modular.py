@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "02.11.2025"
+__date__ = "08.02.2026"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -266,6 +266,17 @@ def gem_green() -> tuple[list[int], bool]:
     """
 
     return _lookup_group('acid fade', 'ssg 08', 'gem_green')
+
+
+def gem_orange() -> tuple[list[int], bool]:
+    """
+    Return a pattern list for max orange 'Desert Eagle | Serpent Strike'.
+
+    :return: A list of patterns that are special for the skin and a boolean indicating if the list is ordered.
+    :rtype: tuple[list[int], bool]
+    """
+
+    return _lookup_group('serpent strike', 'desert eagle', 'gem_orange')
 
 
 def gem_pink() -> tuple[list[int], bool]:

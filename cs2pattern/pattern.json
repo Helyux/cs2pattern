@@ -603,6 +603,17 @@
       }
     ]
   },
+  "serpent strike": {
+    "desert eagle": [
+      {
+        "name": "gem_orange",
+        "ordered": true,
+        "pattern": [
+          425, 698, 363
+        ]
+      }
+    ]
+  },
   "urban masked": {
     "classic knife": [
       {
