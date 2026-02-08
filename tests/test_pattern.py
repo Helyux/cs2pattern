@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "02.11.2025"
+__date__ = "08.02.2026"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
@@ -8,6 +8,7 @@ __status__ = "Production"
 import unittest
 
 from cs2pattern import (
+    PatternInfo,
     abyss,
     berries,
     blaze,
@@ -19,6 +20,7 @@ from cs2pattern import (
     gem_diamond,
     gem_gold,
     gem_green,
+    gem_orange,
     gem_pink,
     gem_purple,
     gem_white,
@@ -31,7 +33,6 @@ from cs2pattern import (
     paw,
     phoenix,
     pussy,
-    PatternInfo,
 )
 from cs2pattern.check import ICON_MAP, _normalize_input
 
@@ -107,6 +108,10 @@ inputs = [
     # Test gem green
     [(True, 'gem_green', (2, 3)), ("SSG 08 | Acid Fade (Factory New)", 575)],
     [(False, None, None), ("SSG 08 | Acid Fade (Factory New)", 123)],
+
+    # Test gem orange
+    [(True, 'gem_orange', (1, 3)), ("Desert Eagle | Serpent Strike (Factory New)", 425)],
+    [(False, None, None), ("Desert Eagle | Serpent Strike (Factory New)", 999)],
 
     # Test gem pink
     [(True, 'gem_pink', None), ("Glock-18 | Pink DDPAT (Factory New)", 600)],
@@ -212,6 +217,7 @@ class TestModularHelpers(unittest.TestCase):
             (blaze, 'case hardened', 'karambit', 'blaze'),
             (gem_diamond, 'gamma doppler', 'karambit', 'gem_diamond'),
             (gem_green, 'acid fade', 'ssg 08', 'gem_green'),
+            (gem_orange, 'serpent strike', 'desert eagle', 'gem_orange'),
             (gem_pink, 'pink ddpat', 'glock-18', 'gem_pink'),
             (grinder, 'grinder', 'glock-18', 'gem_black'),
             (hive_blue, 'electric hive', 'awp', 'blue_hive'),
