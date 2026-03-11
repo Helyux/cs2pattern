@@ -614,6 +614,17 @@
       }
     ]
   },
+  "trace lock": {
+    "glock-18": [
+      {
+        "name": "gem_white",
+        "ordered": false,
+        "pattern": [
+          390, 650, 130, 838
+        ]
+      }
+    ]
+  },
   "urban masked": {
     "classic knife": [
       {

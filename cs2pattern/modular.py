@@ -316,7 +316,7 @@ def gem_purple(weapon: str) -> Optional[tuple[list[int], bool]]:
 
 def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
-    Return a pattern list for whitegem 'Urban Masked' skins.
+    Return a pattern list for whitegem 'Urban Masked' and other niece skins.
 
     :param weapon: The weapon for which to return the pattern list
     :type weapon: str
@@ -326,11 +326,12 @@ def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
     """
 
     skin_options = {
-        'stiletto knife': ('urban masked',),
-        'skeleton knife': ('urban masked',),
         'classic knife': ('urban masked',),
         'flip knife': ('urban masked',),
+        'glock-18': ('trace lock',),
         'm9 bayonet': ('urban masked',),
+        'stiletto knife': ('urban masked',),
+        'skeleton knife': ('urban masked',),
     }
 
     weapon_normalized = weapon.lower()
