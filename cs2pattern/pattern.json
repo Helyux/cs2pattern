@@ -504,7 +504,7 @@
         "name": "gem_pink",
         "ordered": false,
         "pattern": [
-          568, 600
+          568, 600, 741, 255, 589
         ]
       }
     ]
