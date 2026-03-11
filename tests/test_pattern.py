@@ -131,6 +131,8 @@ inputs = [
     # Test gem white
     [(True, 'gem_white', None), ("★ Skeleton Knife | Urban Masked (Factory New)", 299)],
     [(False, None, None), ("★ Skeleton Knife | Urban Masked (Factory New)", 403)],
+    [(True, 'gem_white', None), ("Glock-18 | Trace Lock", 390)],
+    [(False, None, None), ("Glock-18 | Trace Lock", 101)],
 
     # Test grinder
     [(True, 'gem_black', (1, 4)), ("Glock-18 | Grinder (Factory New)", 384)],
@@ -362,6 +364,7 @@ class TestModularHelpers(unittest.TestCase):
             'classic knife': 'urban masked',
             'flip knife': 'urban masked',
             'm9 bayonet': 'urban masked',
+            'glock-18': 'trace lock',
         }
 
         for weapon, skin in cases.items():
