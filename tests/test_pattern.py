@@ -110,7 +110,7 @@ inputs = [
     [(False, None, None), ("SSG 08 | Acid Fade (Factory New)", 123)],
 
     # Test gem orange
-    [(True, 'gem_orange', (1, 3)), ("Desert Eagle | Serpent Strike (Factory New)", 425)],
+    [(True, 'gem_orange', (2, 4)), ("Desert Eagle | Serpent Strike (Factory New)", 425)],
     [(False, None, None), ("Desert Eagle | Serpent Strike (Factory New)", 999)],
 
     # Test gem pink
@@ -131,7 +131,7 @@ inputs = [
     # Test gem white
     [(True, 'gem_white', None), ("★ Skeleton Knife | Urban Masked (Factory New)", 299)],
     [(False, None, None), ("★ Skeleton Knife | Urban Masked (Factory New)", 403)],
-    [(True, 'gem_white', None), ("Glock-18 | Trace Lock", 390)],
+    [(True, 'gem_white', (1, 4)), ("Glock-18 | Trace Lock", 390)],
     [(False, None, None), ("Glock-18 | Trace Lock", 101)],
 
     # Test grinder
