@@ -609,7 +609,7 @@
         "name": "gem_orange",
         "ordered": true,
         "pattern": [
-          425, 698, 363
+          174, 425, 757, 953
         ]
       }
     ]
@@ -618,9 +618,9 @@
     "glock-18": [
       {
         "name": "gem_white",
-        "ordered": false,
+        "ordered": true,
         "pattern": [
-          390, 650, 130, 838
+          390, 130, 650, 838
         ]
       }
     ]
