@@ -21,6 +21,24 @@
       }
     ]
   },
+  "amberline": {
+    "mp7": [
+      {
+        "name": "gem_white",
+        "ordered": false,
+        "pattern": [
+          890, 959, 382, 435, 350, 613, 581, 356
+        ]
+      },
+      {
+        "name": "gem_gold",
+        "ordered": false,
+        "pattern": [
+          205, 218, 519, 426, 153, 504, 711, 906, 322, 238
+        ]
+      }
+    ]
+  },
   "berries and cherries": {
     "five-seven": [
       {
@@ -611,6 +629,13 @@
         "pattern": [
           174, 425, 757, 658, 953
         ]
+      },
+      {
+        "name": "gem_black",
+        "ordered": false,
+        "pattern": [
+          748, 225
+        ]
       }
     ]
   },
@@ -626,6 +651,15 @@
     ]
   },
   "urban masked": {
+    "butterfly knife": [
+      {
+        "name": "gem_white",
+        "ordered": true,
+        "pattern": [
+          456, 704, 57
+        ]
+      }
+    ],
     "classic knife": [
       {
         "name": "gem_white",
@@ -641,6 +675,15 @@
         "ordered": false,
         "pattern": [
           346
+        ]
+      }
+    ],
+    "karambit": [
+      {
+        "name": "gem_white",
+        "ordered": false,
+        "pattern": [
+          947, 967
         ]
       }
     ],
