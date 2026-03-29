@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "1.0.0"
-__date__ = "08.02.2026"
+__date__ = "29.03.2026"
 __email__ = "m@hler.eu"
 __status__ = "Production"
 
@@ -25,11 +25,9 @@ from cs2pattern import (
     gem_purple,
     gem_white,
     get_pattern_dict,
-    grinder,
     hive_blue,
     hive_orange,
     moonrise,
-    nocts,
     paw,
     phoenix,
     pussy,
@@ -103,6 +101,8 @@ inputs = [
     [(True, 'gem_gold', None), ("AK-47 | Case Hardened (Field-Tested)", 219)],
     [(True, 'gem_gold', None), ("★ Bayonet | Case Hardened (Factory New)", 395)],
     [(True, 'gem_gold', None), ("★ Karambit | Case Hardened (Factory New)", 231)],
+    [(True, 'gem_gold', None), ("MP7 | Amberline (Factory New)", 205)],
+    [(False, None, None), ("MP7 | Amberline (Factory New)", 108)],
     [(False, None, None), ("Five-SeveN | Case Hardened (Factory New)", 500)],
 
     # Test gem green
@@ -110,7 +110,7 @@ inputs = [
     [(False, None, None), ("SSG 08 | Acid Fade (Factory New)", 123)],
 
     # Test gem orange
-    [(True, 'gem_orange', (2, 4)), ("Desert Eagle | Serpent Strike (Factory New)", 425)],
+    [(True, 'gem_orange', (2, 5)), ("Desert Eagle | Serpent Strike (Factory New)", 425)],
     [(False, None, None), ("Desert Eagle | Serpent Strike (Factory New)", 999)],
 
     # Test gem pink
@@ -131,12 +131,23 @@ inputs = [
     # Test gem white
     [(True, 'gem_white', None), ("★ Skeleton Knife | Urban Masked (Factory New)", 299)],
     [(False, None, None), ("★ Skeleton Knife | Urban Masked (Factory New)", 403)],
-    [(True, 'gem_white', (1, 4)), ("Glock-18 | Trace Lock", 390)],
+    [(True, 'gem_white', (2, 5)), ("Glock-18 | Trace Lock", 390)],
     [(False, None, None), ("Glock-18 | Trace Lock", 101)],
+    [(True, 'gem_white', None), ("MP7 | Amberline (Factory New)", 959)],
+    [(False, None, None), ("MP7 | Amberline (Factory New)", 101)],
+    [(True, 'gem_white', (3, 3)), ("★ Butterfly Knife | Urban Masked (Field-Tested)", 57)],
+    [(False, None, None), ("★ Butterfly Knife | Urban Masked (Field-Tested)", 101)],
+    [(True, 'gem_white', None), ("★ Karambit | Urban Masked (Minimal Wear)", 947)],
+    [(False, None, None), ("★ Karambit | Urban Masked (Minimal Wear)", 1031)],
 
-    # Test grinder
+    # Test gem black
     [(True, 'gem_black', (1, 4)), ("Glock-18 | Grinder (Factory New)", 384)],
     [(False, None, None), ("Glock-18 | Grinder (Factory New)", 123)],
+    [(True, 'gem_black', None), ("★ Sport Gloves | Nocts (Field-Tested)", 231)],
+    [(False, None, None), ("★ Sport Gloves | Nocts (Field-Tested)", 123)],
+    [(True, 'gem_black', None), ("Desert Eagle | Serpent Strike (Factory New)", 748)],
+    [(False, None, None), ("Desert Eagle | Serpent Strike (Factory New)", 999)],
+
 
     # Test hive
     [(True, 'blue_hive', (5, 6)), ("AWP | Electric Hive (Factory New)", 853)],
@@ -146,10 +157,6 @@ inputs = [
     # Test moonrise
     [(True, 'star', (3, 12)), ("Glock-18 | Moonrise (Factory New)", 66)],
     [(False, None, None), ("Glock-18 | Moonrise (Factory New)", 555)],
-
-    # Test nocts
-    [(True, 'gem_black', None), ("★ Sport Gloves | Nocts (Field-Tested)", 231)],
-    [(False, None, None), ("★ Sport Gloves | Nocts (Field-Tested)", 123)],
 
     # Test paw
     [(True, 'golden_cat', None), ("AWP | Paw (Factory New)", 350)],
@@ -221,11 +228,9 @@ class TestModularHelpers(unittest.TestCase):
             (gem_green, 'acid fade', 'ssg 08', 'gem_green'),
             (gem_orange, 'serpent strike', 'desert eagle', 'gem_orange'),
             (gem_pink, 'pink ddpat', 'glock-18', 'gem_pink'),
-            (grinder, 'grinder', 'glock-18', 'gem_black'),
             (hive_blue, 'electric hive', 'awp', 'blue_hive'),
             (hive_orange, 'electric hive', 'awp', 'orange_hive'),
             (moonrise, 'moonrise', 'glock-18', 'star'),
-            (nocts, 'nocts', 'sport gloves', 'gem_black'),
             (phoenix, 'phoenix blacklight', 'galil ar', 'phoenix'),
             (pussy, 'kami', 'five-seven', 'pussy'),
         ]
@@ -275,23 +280,24 @@ class TestModularHelpers(unittest.TestCase):
         self.assertIsNone(fade('butterfly knife'))
 
     def test_gem_black_helper(self):
-        weapons = [
-            'classic knife',
-            'flip knife',
-            'nomad knife',
-            'paracord knife',
-            'shadow daggers',
-            'skeleton knife',
-            'stiletto knife',
-            'ursus knife',
-        ]
+        cases = {
+            'classic knife': 'scorched',
+            'flip knife': 'scorched',
+            'nomad knife': 'scorched',
+            'paracord knife': 'scorched',
+            'shadow daggers': 'scorched',
+            'skeleton knife': 'scorched',
+            'sport gloves': 'nocts',
+            'stiletto knife': 'scorched',
+            'ursus knife': 'scorched',
+        }
 
-        for weapon in weapons:
+        for weapon, skin in cases.items():
             with self.subTest(weapon=weapon):
-                expected = self._expect_group('scorched', weapon, 'gem_black')
+                expected = self._expect_group(skin, weapon, 'gem_black')
                 self.assertEqual(gem_black(weapon), expected)
 
-        self.assertIsNone(gem_black('unsupported'))
+        self.assertIsNone(gem_white('kukri knife'))
 
     def test_gem_blue_helper(self):
         cases = {
@@ -334,6 +340,7 @@ class TestModularHelpers(unittest.TestCase):
             'bayonet': 'case hardened',
             'five-seven': 'case hardened',
             'karambit': 'case hardened',
+            'mp7': 'amberline',
         }
 
         for weapon, skin in cases.items():
@@ -359,12 +366,15 @@ class TestModularHelpers(unittest.TestCase):
 
     def test_gem_white_helper(self):
         cases = {
-            'stiletto knife': 'urban masked',
-            'skeleton knife': 'urban masked',
+            'butterfly knife': 'urban masked',
             'classic knife': 'urban masked',
             'flip knife': 'urban masked',
-            'm9 bayonet': 'urban masked',
             'glock-18': 'trace lock',
+            'karambit': 'urban masked',
+            'm9 bayonet': 'urban masked',
+            'mp7': 'amberline',
+            'stiletto knife': 'urban masked',
+            'skeleton knife': 'urban masked',
         }
 
         for weapon, skin in cases.items():
@@ -372,7 +382,7 @@ class TestModularHelpers(unittest.TestCase):
                 expected = self._expect_group(skin, weapon, 'gem_white')
                 self.assertEqual(gem_white(weapon), expected)
 
-        self.assertIsNone(gem_white('karambit'))
+        self.assertIsNone(gem_white('kukri knife'))
 
 
 if __name__ == '__main__':
