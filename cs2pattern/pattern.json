@@ -639,6 +639,17 @@
       }
     ]
   },
+  "snow splash": {
+    "mac-10": [
+      {
+        "name": "gem_white",
+        "ordered": true,
+        "pattern": [
+          675, 828, 60, 824, 309, 234, 463, 222
+        ]
+      }
+    ]
+  },
   "trace lock": {
     "glock-18": [
       {

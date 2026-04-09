@@ -1,6 +1,6 @@
 __author__ = "Lukas Mahler"
 __version__ = "0.0.0"
-__date__ = "29.03.2026"
+__date__ = "09.04.2026"
 __email__ = "m@hler.eu"
 __status__ = "Development"
 
@@ -336,6 +336,7 @@ def gem_white(weapon: str) -> Optional[tuple[list[int], bool]]:
         'glock-18': ('trace lock',),
         'karambit': ('urban masked',),
         'm9 bayonet': ('urban masked',),
+        'mac-10': ('snow splash',),
         'mp7': ('amberline',),
         'stiletto knife': ('urban masked',),
         'skeleton knife': ('urban masked',),
