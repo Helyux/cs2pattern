@@ -133,6 +133,8 @@ inputs = [
     [(False, None, None), ("★ Skeleton Knife | Urban Masked (Factory New)", 403)],
     [(True, 'gem_white', (2, 5)), ("Glock-18 | Trace Lock", 390)],
     [(False, None, None), ("Glock-18 | Trace Lock", 101)],
+    [(True, 'gem_white', (3, 8)), ("MAC-10 | Snow Splash (Factory New)", 60)],
+    [(False, None, None), ("MAC-10 | Snow Splash (Factory New)", 155)],
     [(True, 'gem_white', None), ("MP7 | Amberline (Factory New)", 959)],
     [(False, None, None), ("MP7 | Amberline (Factory New)", 101)],
     [(True, 'gem_white', (3, 3)), ("★ Butterfly Knife | Urban Masked (Field-Tested)", 57)],
